@@ -9,11 +9,22 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    private lazy var navigationBar: Hotels_NavigationBar = {
+        let view = Hotels_NavigationBar(leftButtonImage: UIImage(named:"ic_back"))
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        HotelsSetupViews()
     }
 
 
+    private func HotelsSetupViews() {
+        view.addSubview(navigationBar)
+        navigationBar.snp.makeConstraints {
+            $0.left.right.topMargin.equalToSuperview()
+        }
+    }
 }
 

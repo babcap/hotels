@@ -10,9 +10,11 @@
 		8E7FCC2B2B8A3851002FE4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7FCC2A2B8A3851002FE4FE /* AppDelegate.swift */; };
 		8E7FCC2D2B8A3851002FE4FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7FCC2C2B8A3851002FE4FE /* SceneDelegate.swift */; };
 		8E7FCC2F2B8A3851002FE4FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7FCC2E2B8A3851002FE4FE /* ViewController.swift */; };
-		8E7FCC322B8A3851002FE4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7FCC302B8A3851002FE4FE /* Main.storyboard */; };
 		8E7FCC342B8A3852002FE4FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E7FCC332B8A3852002FE4FE /* Assets.xcassets */; };
 		8E7FCC372B8A3852002FE4FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7FCC352B8A3852002FE4FE /* LaunchScreen.storyboard */; };
+		8E7FCC3F2B8A791E002FE4FE /* Hotels_NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7FCC3E2B8A791E002FE4FE /* Hotels_NavigationBar.swift */; };
+		8E7FCC422B8A794E002FE4FE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7FCC412B8A794E002FE4FE /* SnapKit */; };
+		8E7FCC442B8A794E002FE4FE /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7FCC432B8A794E002FE4FE /* SnapKit-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +22,10 @@
 		8E7FCC2A2B8A3851002FE4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E7FCC2C2B8A3851002FE4FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8E7FCC2E2B8A3851002FE4FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8E7FCC312B8A3851002FE4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8E7FCC332B8A3852002FE4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E7FCC362B8A3852002FE4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E7FCC382B8A3852002FE4FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E7FCC3E2B8A791E002FE4FE /* Hotels_NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hotels_NavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E7FCC422B8A794E002FE4FE /* SnapKit in Frameworks */,
+				8E7FCC442B8A794E002FE4FE /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +63,7 @@
 				8E7FCC2A2B8A3851002FE4FE /* AppDelegate.swift */,
 				8E7FCC2C2B8A3851002FE4FE /* SceneDelegate.swift */,
 				8E7FCC2E2B8A3851002FE4FE /* ViewController.swift */,
-				8E7FCC302B8A3851002FE4FE /* Main.storyboard */,
+				8E7FCC3E2B8A791E002FE4FE /* Hotels_NavigationBar.swift */,
 				8E7FCC332B8A3852002FE4FE /* Assets.xcassets */,
 				8E7FCC352B8A3852002FE4FE /* LaunchScreen.storyboard */,
 				8E7FCC382B8A3852002FE4FE /* Info.plist */,
@@ -83,6 +87,10 @@
 			dependencies = (
 			);
 			name = hotels;
+			packageProductDependencies = (
+				8E7FCC412B8A794E002FE4FE /* SnapKit */,
+				8E7FCC432B8A794E002FE4FE /* SnapKit-Dynamic */,
+			);
 			productName = hotels;
 			productReference = 8E7FCC272B8A3851002FE4FE /* hotels.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +119,9 @@
 				Base,
 			);
 			mainGroup = 8E7FCC1E2B8A3851002FE4FE;
+			packageReferences = (
+				8E7FCC402B8A794E002FE4FE /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 8E7FCC282B8A3851002FE4FE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +138,6 @@
 			files = (
 				8E7FCC372B8A3852002FE4FE /* LaunchScreen.storyboard in Resources */,
 				8E7FCC342B8A3852002FE4FE /* Assets.xcassets in Resources */,
-				8E7FCC322B8A3851002FE4FE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +150,7 @@
 			files = (
 				8E7FCC2F2B8A3851002FE4FE /* ViewController.swift in Sources */,
 				8E7FCC2B2B8A3851002FE4FE /* AppDelegate.swift in Sources */,
+				8E7FCC3F2B8A791E002FE4FE /* Hotels_NavigationBar.swift in Sources */,
 				8E7FCC2D2B8A3851002FE4FE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +158,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8E7FCC302B8A3851002FE4FE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8E7FCC312B8A3851002FE4FE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8E7FCC352B8A3852002FE4FE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -375,6 +378,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8E7FCC402B8A794E002FE4FE /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8E7FCC412B8A794E002FE4FE /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8E7FCC402B8A794E002FE4FE /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		8E7FCC432B8A794E002FE4FE /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8E7FCC402B8A794E002FE4FE /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8E7FCC1F2B8A3851002FE4FE /* Project object */;
 }
