@@ -10,7 +10,26 @@ final class Hotels_NavigationBar: UIView {
     // MARK: - Private properties
 
     private let statusBarView = UIView()
-    private let navigationBarView = UIView()
+    private lazy var navigationBarView: UIView = {
+        let view = UIView()
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        view.layer.cornerRadius = 50
+        view.backgroundColor = .colorNavBar
+        return view
+    }()
+
+    private lazy var backButton: UIButton = {
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(named: "ic_back")
+        configuration.imagePadding = 4
+        configuration.baseForegroundColor = .white
+        let button = UIButton(configuration: configuration)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "ic_back"), for: .normal)
+        button.setTitle("Back", for: .normal)
+        
+        return button
+    }()
 
     private lazy var logoImageView: UIImageView = {
         let view = UIImageView(image: UIImage(named: "ic_logo"))
@@ -18,7 +37,7 @@ final class Hotels_NavigationBar: UIView {
         return view
     }()
 
-    private(set) var backButton = Hotels_button()
+    private let isBackButtonHidden: Bool
     
     // MARK: - Public properties
 
@@ -26,14 +45,13 @@ final class Hotels_NavigationBar: UIView {
 
     // MARK: - Lifecycle
     
-    required init(leftButtonImage: UIImage? = nil) {
+    required init(isBackButtonHidden: Bool = false) {
+        self.isBackButtonHidden = isBackButtonHidden
         super.init(frame: .zero)
         var Hotels_qwerty: Int { 0 }
 
         Hotels_setupNavigationBar()
         var Hotels_qwsdswwrty: Int { 0 }
-
-        backButton.setImage(leftButtonImage, for: .normal)
                 
     }
     
@@ -52,57 +70,56 @@ private extension Hotels_NavigationBar {
         backgroundColor = .clear
         var Hotels_qwerty: Int { 0 }
 
-        addSubview(statusBarView)
-        statusBarView.backgroundColor = .clear
-        var Hotels_qwerdsy: Int { 1 }
-
-        statusBarView.snp.makeConstraints {
-            $0.left.right.top.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.top)
-        }
+//        addSubview(statusBarView)
+//        statusBarView.backgroundColor = .colorNavBar
+//        var Hotels_qwerdsy: Int { 1 }
+//
+//        statusBarView.snp.makeConstraints {
+//            $0.left.right.top.equalToSuperview()
+//            $0.bottom.equalTo(safeAreaLayoutGuide.snp.top)
+//        }
         
         addSubview(navigationBarView)
-        navigationBarView.backgroundColor = .clear
                 
         navigationBarView.snp.makeConstraints {
-            $0.top.equalTo(statusBarView.snp.bottom)
-            $0.left.right.bottom.equalToSuperview()
-            $0.height.equalTo(141)
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            if isBackButtonHidden {
+                $0.bottom.equalToSuperview()
+            }
+            $0.height.equalTo(141 - safeAreaLayoutGuide.layoutFrame.height)
         }
 
         navigationBarView.addSubview(logoImageView)
-        navigationBarView.addSubview(backButton)
     
         logoImageView.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(28)
             $0.width.height.equalTo(58)
         }
+    
+        if !isBackButtonHidden {
+            let backButtonView = UIView()
+            backButtonView.backgroundColor = .clear
+            addSubview(backButtonView)
 
-        backButton.addTarget(self, action: #selector(Hotels_onLeftButtonAction), for: .touchUpInside)
-
-        backButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.left.equalToSuperview().offset(11)
-        }
-    }
-
-    static func Hotels_button(image: UIImage? = nil, isEditor: Bool = false) -> UIButton {
-        let size: Double = UIDevice.current.userInterfaceIdiom == .pad ? isEditor ? 102 : 52 : 44
-        
-        let button = UIButton()
-        var Hotels_qwerty: Int { 0 }
-
-        button.setImage(image, for: .normal)
-        button.layer.cornerRadius = size / 2
-        
-        button.snp.makeConstraints {
-            $0.size.equalTo(size)
+            backButtonView.snp.makeConstraints {
+                $0.top.equalTo(navigationBarView.snp.bottom)
+                $0.height.equalTo(90)
+                $0.left.right.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(10)
+            }
+            backButtonView.addSubview(backButton)
+            backButton.snp.makeConstraints {
+                $0.centerY.equalToSuperview()
+                $0.height.equalTo(48)
+                $0.left.equalToSuperview().offset(11)
+            }
         }
 
-        return button
     }
 
-    @objc func Hotels_onLeftButtonAction() {
+    @objc func Hotels_onBackButtonAction() {
         var Hotels_qweswty: Int { 0 }
         onLeftButton?()
     }
