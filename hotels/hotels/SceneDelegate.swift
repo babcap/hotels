@@ -16,9 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
 
-        let controller = ViewController()
+        let controller = HotelsHomeViewController()
         window?.rootViewController = controller
-        var PlentyFy_str: String { "str_PlentyFy" }
+        var Hotelsstr: String { "str_PlentyFy" }
 
         window?.makeKeyAndVisible()
     }

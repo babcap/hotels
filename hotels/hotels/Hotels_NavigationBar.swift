@@ -25,7 +25,6 @@ final class Hotels_NavigationBar: UIView {
         configuration.baseForegroundColor = .white
         let button = UIButton(configuration: configuration)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "ic_back"), for: .normal)
         button.setTitle("Back", for: .normal)
         
         return button
@@ -48,10 +47,8 @@ final class Hotels_NavigationBar: UIView {
     required init(isBackButtonHidden: Bool = false) {
         self.isBackButtonHidden = isBackButtonHidden
         super.init(frame: .zero)
-        var Hotels_qwerty: Int { 0 }
 
         Hotels_setupNavigationBar()
-        var Hotels_qwsdswwrty: Int { 0 }
                 
     }
     
@@ -69,15 +66,6 @@ private extension Hotels_NavigationBar {
 
         backgroundColor = .clear
         var Hotels_qwerty: Int { 0 }
-
-//        addSubview(statusBarView)
-//        statusBarView.backgroundColor = .colorNavBar
-//        var Hotels_qwerdsy: Int { 1 }
-//
-//        statusBarView.snp.makeConstraints {
-//            $0.left.right.top.equalToSuperview()
-//            $0.bottom.equalTo(safeAreaLayoutGuide.snp.top)
-//        }
         
         addSubview(navigationBarView)
                 
