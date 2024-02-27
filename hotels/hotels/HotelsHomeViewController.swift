@@ -27,6 +27,7 @@ class HotelsHomeViewController: UIViewController {
         let view = HotelsHomeSearchView()
         return view
     } ()
+    private lazy var hotelsSignInView = HotelsSignInView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,7 @@ class HotelsHomeViewController: UIViewController {
         }
         contentStackView.addArrangedSubview(welcomeArticleView)
         contentStackView.addArrangedSubview(searchView)
+        contentStackView.addArrangedSubview(hotelsSignInView)
         
         
         navigationBar.snp.makeConstraints {
@@ -66,6 +68,10 @@ class HotelsHomeViewController: UIViewController {
         welcomeArticleView.onShowWelcome = {
             self.showWelcomeArticle()
         }
+    
+        hotelsSignInView.onSignIn = {
+            self.HotelsSignIn()
+        }
     }
 
     func onSearch(model: StartSearchViewModel) {
@@ -73,6 +79,10 @@ class HotelsHomeViewController: UIViewController {
     }
 
     func showWelcomeArticle() {
+        
+    }
+
+    func HotelsSignIn() {
         
     }
 }
