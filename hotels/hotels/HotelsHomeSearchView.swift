@@ -93,41 +93,41 @@ final class HotelsHomeSearchView: UIView, UITextFieldDelegate {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(24)
             $0.height.equalTo(22)
-            $0.left.right.equalToSuperview().inset(33)
+            $0.left.right.equalToSuperview().inset(25)
         }
         cityTextField.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(33)
+            $0.left.right.equalToSuperview().inset(25)
             $0.height.equalTo(50)
         }
         startDateLabel.snp.makeConstraints {
             $0.top.equalTo(cityTextField.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(33)
+            $0.left.equalToSuperview().inset(25)
             $0.height.equalTo(22)
             $0.right.equalTo(self.snp.centerX).inset(4)
         }
         startDateTextField.snp.makeConstraints {
             $0.top.equalTo(startDateLabel.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(33)
+            $0.left.equalToSuperview().inset(25)
             $0.height.equalTo(50)
             $0.right.equalTo(self.snp.centerX).inset(4)
         }
     
         endDateLabel.snp.makeConstraints {
             $0.top.equalTo(cityTextField.snp.bottom).offset(8)
-            $0.right.equalToSuperview().inset(33)
+            $0.right.equalToSuperview().inset(25)
             $0.height.equalTo(22)
             $0.left.equalTo(self.snp.centerX).offset(4)
         }
         endDateTextField.snp.makeConstraints {
             $0.top.equalTo(endDateLabel.snp.bottom).offset(8)
-            $0.right.equalToSuperview().inset(33)
+            $0.right.equalToSuperview().inset(25)
             $0.height.equalTo(50)
             $0.left.equalTo(self.snp.centerX).offset(4)
         }
         searchButton.snp.makeConstraints {
             $0.top.equalTo(endDateTextField.snp.bottom).offset(30)
-            $0.right.left.equalToSuperview().inset(33)
+            $0.right.left.equalToSuperview().inset(25)
             $0.bottom.equalToSuperview()
         }
 

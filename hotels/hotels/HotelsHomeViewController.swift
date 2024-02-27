@@ -22,6 +22,7 @@ class HotelsHomeViewController: UIViewController {
     }()
 
     private let contentStackView = UIStackView(axis: .vertical, distribution: .equalSpacing, spacing: 20)
+    private lazy var welcomeArticleView = HotelsWelcomeArticleView()
     private lazy var searchView: HotelsHomeSearchView = {
         let view = HotelsHomeSearchView()
         return view
@@ -40,6 +41,7 @@ class HotelsHomeViewController: UIViewController {
         searchView.onSearchTap = { viewModel in
             debugPrint(viewModel)
         }
+        contentStackView.addArrangedSubview(welcomeArticleView)
         contentStackView.addArrangedSubview(searchView)
         
         
@@ -56,9 +58,21 @@ class HotelsHomeViewController: UIViewController {
             $0.left.right.equalTo(view).inset(25)
             $0.top.bottom.equalToSuperview()
         }
+    
+        searchView.onSearchTap = {
+            self.onSearch(model: $0)
+        }
+    
+        welcomeArticleView.onShowWelcome = {
+            self.showWelcomeArticle()
+        }
     }
 
-    func onSearch() {
+    func onSearch(model: StartSearchViewModel) {
+        
+    }
+
+    func showWelcomeArticle() {
         
     }
 }
