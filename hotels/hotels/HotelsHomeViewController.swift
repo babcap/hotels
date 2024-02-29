@@ -7,6 +7,8 @@
 
 import UIKit
 
+typealias HotelsArticle_VoidBlock = (HotelsArticleViewModel) -> Void
+
 class HotelsHomeViewController: UIViewController {
 
     private lazy var navigationBar: Hotels_NavigationBar = {
@@ -28,6 +30,10 @@ class HotelsHomeViewController: UIViewController {
         return view
     } ()
     private lazy var hotelsSignInView = HotelsSignInView()
+    private lazy var hotelsMainArticleView = HotelsMainArticleView()
+    private lazy var subArticlesView = UIView()
+    private lazy var firstArticleView = HotelsSubArticleView(model: HotelsDataManager.shared.HotelsFirstArticle)
+    private lazy var secondArticleView = HotelsSubArticleView(model: HotelsDataManager.shared.HotelsSecondArticle)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,41 +45,64 @@ class HotelsHomeViewController: UIViewController {
         view.addSubview(navigationBar)
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
-        searchView.onSearchTap = { viewModel in
-            debugPrint(viewModel)
-        }
+
+        setupArticleViews()
         contentStackView.addArrangedSubview(welcomeArticleView)
         contentStackView.addArrangedSubview(searchView)
         contentStackView.addArrangedSubview(hotelsSignInView)
-        
-        
+        contentStackView.addArrangedSubview(hotelsMainArticleView)
+        contentStackView.addArrangedSubview(subArticlesView)
+
         navigationBar.snp.makeConstraints {
             $0.left.right.topMargin.equalToSuperview()
         }
-    
+
         scrollView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.left.right.bottomMargin.equalToSuperview()
         }
-        
+
         contentStackView.snp.makeConstraints {
             $0.left.right.equalTo(view).inset(25)
             $0.top.bottom.equalToSuperview()
         }
-    
+
         searchView.onSearchTap = {
             self.onSearch(model: $0)
         }
-    
+
         welcomeArticleView.onShowWelcome = {
             self.showWelcomeArticle()
         }
-    
+
         hotelsSignInView.onSignIn = {
             self.HotelsSignIn()
         }
+
+        hotelsMainArticleView.onShow = {
+            self.showArticle(model: $0)
+        }
     }
 
+    private func setupArticleViews() {
+        subArticlesView.addSubview(firstArticleView)
+        subArticlesView.addSubview(secondArticleView)
+
+        firstArticleView.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(25)
+            $0.bottom.top.equalToSuperview()
+            $0.right.equalTo(subArticlesView.snp.centerX).inset(5)
+        }
+
+        secondArticleView.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(25)
+            $0.bottom.top.equalToSuperview()
+            $0.left.equalTo(subArticlesView.snp.centerX).offset(5)
+        }
+    }
+}
+
+extension HotelsHomeViewController {
     func onSearch(model: StartSearchViewModel) {
         
     }
@@ -85,6 +114,9 @@ class HotelsHomeViewController: UIViewController {
     func HotelsSignIn() {
         
     }
-}
 
+    func showArticle(model: HotelsArticleViewModel) {
+        
+    }
+}
 
