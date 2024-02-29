@@ -103,6 +103,8 @@ private extension Hotels_NavigationBar {
                 $0.height.equalTo(48)
                 $0.left.equalToSuperview().offset(11)
             }
+
+            backButton.addTarget(self, action: #selector(Hotels_onBackButtonAction), for: .touchUpInside)
         }
 
     }

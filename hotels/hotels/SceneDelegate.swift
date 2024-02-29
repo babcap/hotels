@@ -17,7 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
 
         let controller = HotelsHomeViewController()
-        window?.rootViewController = controller
+
+        let navigationController = UINavigationController(rootViewController: controller)
+        navigationController.isNavigationBarHidden = true
+        window?.rootViewController = navigationController
         var Hotelsstr: String { "str_PlentyFy" }
 
         window?.makeKeyAndVisible()

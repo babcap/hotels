@@ -25,6 +25,7 @@
 		8E7FCC3F2B8A791E002FE4FE /* Hotels_NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7FCC3E2B8A791E002FE4FE /* Hotels_NavigationBar.swift */; };
 		8E7FCC422B8A794E002FE4FE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7FCC412B8A794E002FE4FE /* SnapKit */; };
 		8E7FCC442B8A794E002FE4FE /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7FCC432B8A794E002FE4FE /* SnapKit-Dynamic */; };
+		8EE5D79A2B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE5D7992B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		8E7FCC362B8A3852002FE4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E7FCC382B8A3852002FE4FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E7FCC3E2B8A791E002FE4FE /* Hotels_NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hotels_NavigationBar.swift; sourceTree = "<group>"; };
+		8EE5D7992B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsArticleDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				8E7FCC2A2B8A3851002FE4FE /* AppDelegate.swift */,
 				8E7FCC2C2B8A3851002FE4FE /* SceneDelegate.swift */,
 				8E7FCC2E2B8A3851002FE4FE /* HotelsHomeViewController.swift */,
+				8EE5D7992B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift */,
 				8E7639E22B8E75040029A38D /* HotelsSignInView.swift */,
 				8E4920AF2B8BB44F006AE8B4 /* HotelsDataManager.swift */,
 				8E7FCC3E2B8A791E002FE4FE /* Hotels_NavigationBar.swift */,
@@ -191,6 +194,7 @@
 				8E7FCC2B2B8A3851002FE4FE /* AppDelegate.swift in Sources */,
 				8E7FCC3F2B8A791E002FE4FE /* Hotels_NavigationBar.swift in Sources */,
 				8E7FCC2D2B8A3851002FE4FE /* SceneDelegate.swift in Sources */,
+				8EE5D79A2B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift in Sources */,
 				8E4920B82B8C00D1006AE8B4 /* HotelsTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

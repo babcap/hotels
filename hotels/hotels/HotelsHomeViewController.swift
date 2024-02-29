@@ -82,6 +82,14 @@ class HotelsHomeViewController: UIViewController {
         hotelsMainArticleView.onShow = {
             self.showArticle(model: $0)
         }
+
+        firstArticleView.onShow = {
+            self.showArticle(model: $0)
+        }
+
+        secondArticleView.onShow = {
+            self.showArticle(model: $0)
+        }
     }
 
     private func setupArticleViews() {
@@ -116,7 +124,8 @@ extension HotelsHomeViewController {
     }
 
     func showArticle(model: HotelsArticleViewModel) {
-        
+        let vc = HotelsArticleDetailsViewController(viewModel: model)
+        self.navigationController?.pushViewController(vc, animated: false)
     }
 }
 
