@@ -48,13 +48,15 @@ extension HotelsGradientView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 
-    func applyGradient(with colours: [UIColor], gradient orientation: GradientOrientation) {
+    func applyGradient(isRounded: Bool, with colours: [UIColor], gradient orientation: GradientOrientation) {
         let gradient = CAGradientLayer()
         gradient.frame = self.bounds
         gradient.colors = colours.map { $0.cgColor }
         gradient.startPoint = orientation.startPoint
         gradient.endPoint = orientation.endPoint
-        layer.cornerRadius = 40
+        if isRounded {
+            layer.cornerRadius = 40
+        }
         clipsToBounds = true
         self.layer.insertSublayer(gradient, at: 0)
     }
@@ -63,7 +65,7 @@ extension HotelsGradientView {
 class HotelsRoundedGradientView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
-        applyGradient(with: [.gradientBackground2, .gradientBackground1, .gradientBackground2], gradient: .horizontal)
+        applyGradient(isRounded: true, with: [.gradientBackground2, .gradientBackground1, .gradientBackground2], gradient: .horizontal)
         layer.borderColor = UIColor.colorBorder.cgColor
         layer.borderWidth = 1
     }

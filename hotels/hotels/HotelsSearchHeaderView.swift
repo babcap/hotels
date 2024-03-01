@@ -71,6 +71,8 @@ final class HotelsSearchHeaderView: UIView {
         return view
     }()
 
+    private lazy var conditionsView = HotelsConditionsView()
+
     required init() {
         super.init(frame: .zero)
 
@@ -96,6 +98,7 @@ final class HotelsSearchHeaderView: UIView {
 
         headerContainer.addSubview(ratingLabel)
         headerContainer.addSubview(ratingView)
+        headerContainer.addSubview(conditionsView)
 
         headerContainer.snp.makeConstraints() {
             $0.top.equalToSuperview()
@@ -165,6 +168,11 @@ final class HotelsSearchHeaderView: UIView {
             $0.top.equalTo(ratingLabel.snp.bottom).offset(14)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(54)
+        }
+    
+        conditionsView.snp.makeConstraints {
+            $0.top.equalTo(ratingView.snp.bottom).offset(20)
+            $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
     }

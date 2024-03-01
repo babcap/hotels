@@ -32,7 +32,6 @@ final class HotelsSearchViewController: UIViewController {
         
         tableView.sectionHeaderTopPadding = 0
         tableView.bounces = false
-        tableView.isScrollEnabled = false
         
         tableView.delegate = self
         tableView.dataSource = self
