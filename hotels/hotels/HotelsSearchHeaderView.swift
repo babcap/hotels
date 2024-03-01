@@ -75,7 +75,12 @@ final class HotelsSearchHeaderView: UIView {
 
     private lazy var conditionsView = HotelsConditionsView()
 
-    private let searchButton = HotelsSearchButton()
+    private lazy var searchButton = HotelsSearchButton()
+    private lazy var separatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .colorSeparator
+        return view
+    }()
 
     required init() {
         super.init(frame: .zero)
@@ -104,6 +109,7 @@ final class HotelsSearchHeaderView: UIView {
         headerContainer.addSubview(ratingView)
         headerContainer.addSubview(conditionsView)
         headerContainer.addSubview(searchButton)
+        headerContainer.addSubview(separatorView)
 
         headerContainer.snp.makeConstraints() {
             $0.top.equalToSuperview()
@@ -186,10 +192,17 @@ final class HotelsSearchHeaderView: UIView {
         }
 
         searchButton.snp.makeConstraints {
-            $0.top.equalTo(conditionsView.snp.bottom).offset(38)
+            $0.top.equalTo(conditionsView.snp.bottom).offset(26)
             $0.right.left.equalToSuperview()
+        }
+
+        separatorView.snp.makeConstraints {
+            $0.height.equalTo(1)
+            $0.top.equalTo(searchButton.snp.bottom).offset(26)
+            $0.left.right.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(26)
         }
+
 
         searchButton.onSearch = {
             let conditions = HotelsConditions.allCases
