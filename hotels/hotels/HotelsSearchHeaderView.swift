@@ -6,9 +6,10 @@
 //
 
 import UIKit
-
+import Cosmos
 
 final class HotelsSearchHeaderView: UIView {
+    private lazy var headerContainer = UIView()
     private lazy var searchContainer = HotelsRoundedGradientView()
     
     private lazy var cityLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
@@ -59,6 +60,17 @@ final class HotelsSearchHeaderView: UIView {
         return view
     }()
 
+    private lazy var ratingLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), title: "Rating", color: .white)
+    private lazy var ratingView: CosmosView = {
+        let view = CosmosView()
+        view.settings.starSize = 54
+        view.settings.fillMode = .full
+        view.settings.starMargin = (UIScreen.main.bounds.width - (50 + 54*5))/4
+        view.settings.filledImage = UIImage(named: "ic_filled_star")!
+        view.settings.emptyImage = UIImage(named: "ic_empty_star")!
+        return view
+    }()
+
     required init() {
         super.init(frame: .zero)
 
@@ -71,7 +83,8 @@ final class HotelsSearchHeaderView: UIView {
     }
 
     private func Hotels_setupViews() {
-        addSubview(searchContainer)
+        addSubview(headerContainer)
+        headerContainer.addSubview(searchContainer)
         searchContainer.addSubview(countryLabel)
         searchContainer.addSubview(countryTextField)
         searchContainer.addSubview(cityLabel)
@@ -80,12 +93,18 @@ final class HotelsSearchHeaderView: UIView {
         searchContainer.addSubview(endDateLabel)
         searchContainer.addSubview(startDateTextField)
         searchContainer.addSubview(endDateTextField)
-        
 
-        searchContainer.snp.makeConstraints() {
+        headerContainer.addSubview(ratingLabel)
+        headerContainer.addSubview(ratingView)
+
+        headerContainer.snp.makeConstraints() {
             $0.top.equalToSuperview()
             $0.left.right.equalToSuperview().inset(25)
             $0.bottom.equalTo(self.snp.bottom).priority(.high)
+        }
+    
+        searchContainer.snp.makeConstraints() {
+            $0.top.left.right.equalToSuperview()
         }
 
         countryLabel.snp.makeConstraints {
@@ -134,6 +153,19 @@ final class HotelsSearchHeaderView: UIView {
             $0.height.equalTo(50)
             $0.left.equalTo(self.snp.centerX).offset(5)
             $0.bottom.equalToSuperview().inset(36)
+        }
+    
+        ratingLabel.snp.makeConstraints {
+            $0.top.equalTo(searchContainer.snp.bottom).offset(32)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(22)
+        }
+
+        ratingView.snp.makeConstraints {
+            $0.top.equalTo(ratingLabel.snp.bottom).offset(14)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(54)
+            $0.bottom.equalToSuperview()
         }
     }
 

@@ -28,6 +28,8 @@ final class HotelsSearchViewController: UIViewController {
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
 //        tableView.register()
+        tableView.canCancelContentTouches = false
+        
         tableView.sectionHeaderTopPadding = 0
         tableView.bounces = false
         tableView.isScrollEnabled = false
@@ -68,6 +70,9 @@ final class HotelsSearchViewController: UIViewController {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
+        navigationBar.onLeftButton = {
+            self.navigationController?.popViewController(animated: false)
+        }
     }
 }
 
@@ -85,7 +90,7 @@ extension HotelsSearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 2
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
