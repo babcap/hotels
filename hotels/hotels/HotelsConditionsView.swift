@@ -56,7 +56,7 @@ final class HotelsConditionsView: UIView {
     private func Hotels_setupViews() {
         addSubview(titleLabel)
         addSubview(collectionView)
-    
+        
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
             $0.left.right.equalToSuperview()
@@ -68,6 +68,7 @@ final class HotelsConditionsView: UIView {
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(collectionView.contentSize.height)
         }
+    }
 }
 
 extension HotelsConditionsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
