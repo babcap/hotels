@@ -11,8 +11,8 @@ typealias HotelsStartSearch_VoidBlock = (StartSearchViewModel) -> Void
 
 struct StartSearchViewModel {
     var country: String?
-    var startDate: Date?
-    var endDate: Date?
+    var startDate: String?
+    var endDate: String?
 }
 
 final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate {
@@ -56,13 +56,6 @@ final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate
     }()
 
     private let searchButton = HotelsSearchButton()
-
-    private lazy var datePicker: UIDatePicker = {
-      let datePicker = UIDatePicker(frame: .zero)
-      datePicker.datePickerMode = .date
-      datePicker.timeZone = TimeZone.current
-      return datePicker
-    }()
 
     private var selectedTextField: UITextField?
 
@@ -130,7 +123,9 @@ final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate
             $0.right.left.equalToSuperview().inset(32)
             $0.bottom.equalToSuperview().inset(26)
         }
-
+        searchButton.onSearch = {
+            self.HotelsonSearchButton()
+        }
     }
 
     private func HotelsSetupText() {
@@ -139,31 +134,6 @@ final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate
         self.endDateLabel.text = "Finish"
     }
 
-    @objc
-    func cancelAction(_ textField: UITextField) {
-      
-            self.startDateTextField.resignFirstResponder()
-    }
-
-    @objc
-    func doneAction(_ textField: UITextField) {
-        if let datePickerView = selectedTextField!.inputView as? UIDatePicker {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd-MM-yyyy"
-            let dateString = dateFormatter.string(from: datePickerView.date)
-            switch self.selectedTextField!.tag {
-            case 0:
-                self.startDateTextField.text = dateString
-                searchVM.startDate = datePickerView.date
-                self.startDateTextField.resignFirstResponder()
-            case 1:
-                self.endDateTextField.text = dateString
-                searchVM.endDate = datePickerView.date
-                self.endDateTextField.resignFirstResponder()
-            default: break
-            }
-        }
-    }
     func HotelsonSearchButton() {
         searchVM.country = cityTextField.text
         onSearchTap?(searchVM)
