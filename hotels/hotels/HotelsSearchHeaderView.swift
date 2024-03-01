@@ -9,6 +9,8 @@ import UIKit
 import Cosmos
 
 final class HotelsSearchHeaderView: UIView {
+    var onSearchTap: HotelsStartSearch_VoidBlock?
+    
     private lazy var headerContainer = UIView()
     private lazy var searchContainer = HotelsRoundedGradientView()
     
@@ -73,6 +75,8 @@ final class HotelsSearchHeaderView: UIView {
 
     private lazy var conditionsView = HotelsConditionsView()
 
+    private let searchButton = HotelsSearchButton()
+
     required init() {
         super.init(frame: .zero)
 
@@ -99,6 +103,7 @@ final class HotelsSearchHeaderView: UIView {
         headerContainer.addSubview(ratingLabel)
         headerContainer.addSubview(ratingView)
         headerContainer.addSubview(conditionsView)
+        headerContainer.addSubview(searchButton)
 
         headerContainer.snp.makeConstraints() {
             $0.top.equalToSuperview()
@@ -120,22 +125,26 @@ final class HotelsSearchHeaderView: UIView {
             $0.left.right.equalToSuperview().inset(32)
             $0.height.equalTo(50)
         }
+
         cityLabel.snp.makeConstraints {
             $0.top.equalTo(countryTextField.snp.bottom).offset(18)
             $0.height.equalTo(22)
             $0.left.right.equalToSuperview().inset(32)
         }
+
         cityTextField.snp.makeConstraints {
             $0.top.equalTo(cityLabel.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(32)
             $0.height.equalTo(50)
         }
+
         startDateLabel.snp.makeConstraints {
             $0.top.equalTo(cityTextField.snp.bottom).offset(18)
             $0.left.equalToSuperview().inset(32)
             $0.height.equalTo(22)
             $0.right.equalTo(self.snp.centerX).inset(4)
         }
+
         startDateTextField.snp.makeConstraints {
             $0.top.equalTo(startDateLabel.snp.bottom).offset(8)
             $0.left.equalToSuperview().inset(32)
@@ -143,13 +152,14 @@ final class HotelsSearchHeaderView: UIView {
             $0.right.equalTo(self.snp.centerX).inset(4)
             $0.bottom.equalToSuperview().inset(36)
         }
-    
+
         endDateLabel.snp.makeConstraints {
             $0.top.equalTo(cityTextField.snp.bottom).offset(18)
             $0.right.equalToSuperview().inset(32)
             $0.height.equalTo(22)
             $0.left.equalTo(self.snp.centerX).offset(5)
         }
+
         endDateTextField.snp.makeConstraints {
             $0.top.equalTo(endDateLabel.snp.bottom).offset(8)
             $0.right.equalToSuperview().inset(32)
@@ -157,7 +167,7 @@ final class HotelsSearchHeaderView: UIView {
             $0.left.equalTo(self.snp.centerX).offset(5)
             $0.bottom.equalToSuperview().inset(36)
         }
-    
+
         ratingLabel.snp.makeConstraints {
             $0.top.equalTo(searchContainer.snp.bottom).offset(32)
             $0.left.right.equalToSuperview()
@@ -169,11 +179,21 @@ final class HotelsSearchHeaderView: UIView {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(54)
         }
-    
+
         conditionsView.snp.makeConstraints {
             $0.top.equalTo(ratingView.snp.bottom).offset(20)
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
+        }
+
+        searchButton.snp.makeConstraints {
+            $0.top.equalTo(conditionsView.snp.bottom).offset(38)
+            $0.right.left.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(26)
+        }
+
+        searchButton.onSearch = {
+            let conditions = HotelsConditions.allCases
+            self.onSearchTap?(.init(country: self.countryTextField.text ?? "", conditions: self.conditionsView.selectedCells.map { HotelsConditions.allCases[$0]}))
         }
     }
 

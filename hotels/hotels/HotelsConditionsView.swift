@@ -21,17 +21,17 @@ enum HotelsConditions: String, CaseIterable {
 }
 
 final class HotelsConditionsView: UIView {
+    var selectedCells: Set<Int> = []
     private lazy var titleLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), title: "Conditions", color: .white)
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = .init(top: .zero, left: .zero, bottom: UIDevice.current.userInterfaceIdiom == .pad ? 60 : 16, right: .zero)
-        
-        var PlentyFy_00swtlwr: Int { 0 }
 
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .clear
         collection.isScrollEnabled = false
+        collection.frame = CGRect(x: .zero, y: .zero, width: UIScreen.main.bounds.width - 50, height: .zero)
         collection.allowsMultipleSelection = true
         collection.register(HotelsConditionCell.self, forCellWithReuseIdentifier: HotelsConditionCell.reuseIdentifier)
         collection.showsVerticalScrollIndicator = false
@@ -62,12 +62,12 @@ final class HotelsConditionsView: UIView {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(22)
         }
+        collectionView.layoutIfNeeded()
         collectionView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(26)
-            $0.height.equalTo(300)
             $0.left.right.bottom.equalToSuperview()
+            $0.height.equalTo(collectionView.contentSize.height)
         }
-    }
 }
 
 extension HotelsConditionsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -90,11 +90,13 @@ extension HotelsConditionsView: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? HotelsConditionCell else { return }
         cell.isSelected = true
+        selectedCells.insert(indexPath.row)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? HotelsConditionCell else { return }
         cell.isSelected = false
+        selectedCells.remove(indexPath.row)
     }
 }
 

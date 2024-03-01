@@ -111,7 +111,7 @@ class HotelsHomeViewController: UIViewController {
 }
 
 extension HotelsHomeViewController {
-    func onSearch(model: StartSearchViewModel) {
+    func onSearch(model: SearchViewModel) {
         let vc = HotelsSearchViewController(viewModel: model)
         self.navigationController?.pushViewController(vc, animated: false)
     }

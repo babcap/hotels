@@ -9,7 +9,7 @@ import UIKit
 
 final class HotelsSearchViewController: UIViewController {
 
-    private let viewModel: StartSearchViewModel
+    private let viewModel: SearchViewModel
 
     private lazy var navigationBar: Hotels_NavigationBar = {
         let view = Hotels_NavigationBar()
@@ -39,7 +39,7 @@ final class HotelsSearchViewController: UIViewController {
         return tableView
     }()
 
-    required init(viewModel: StartSearchViewModel) {
+    required init(viewModel: SearchViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

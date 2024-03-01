@@ -7,12 +7,13 @@
 
 import UIKit
 
-typealias HotelsStartSearch_VoidBlock = (StartSearchViewModel) -> Void
+typealias HotelsStartSearch_VoidBlock = (SearchViewModel) -> Void
 
-struct StartSearchViewModel {
+struct SearchViewModel {
     var country: String?
     var startDate: String?
     var endDate: String?
+    var conditions: [HotelsConditions] = []
 }
 
 final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate {
@@ -59,7 +60,7 @@ final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate
 
     private var selectedTextField: UITextField?
 
-    private var searchVM = StartSearchViewModel()
+    private var searchVM = SearchViewModel()
     var onSearchTap: HotelsStartSearch_VoidBlock?
     
     required init() {
