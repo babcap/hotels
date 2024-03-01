@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class HotelsSignInView: UIView {
+
+final class HotelsSignInView: HotelsRoundedGradientView {
     private let titleLabel = UILabel(font: .helvetica(style: .medium, size: 18),
                                         title: "Sign in to your account to simplify registration",
                                         color: .white, lines: 0)
-    private lazy var signInButton = UIButton(type: .custom)
+    private lazy var signInButton = HotelsGradientButton(type: .custom)
 
     var onSignIn: Hotels_VoidBlock?
 
@@ -39,13 +40,14 @@ private extension HotelsSignInView {
         }
         
         signInButton.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).inset(20)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.right.left.equalToSuperview().inset(25)
             $0.bottom.equalToSuperview().inset(24)
             $0.height.width.equalTo(59)
         }
     
         signInButton.setTitle("Sign In", for: .normal)
+        signInButton.isTitleGold = true
     }
 
     @objc func onSignInButton() {

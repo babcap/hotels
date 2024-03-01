@@ -15,7 +15,7 @@ struct StartSearchViewModel {
     var endDate: Date?
 }
 
-final class HotelsHomeSearchView: UIView, UITextFieldDelegate {
+final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate {
     
     private let titleLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
     private let startDateLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
@@ -128,7 +128,7 @@ final class HotelsHomeSearchView: UIView, UITextFieldDelegate {
         searchButton.snp.makeConstraints {
             $0.top.equalTo(endDateTextField.snp.bottom).offset(30)
             $0.right.left.equalToSuperview().inset(32)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(26)
         }
 
     }

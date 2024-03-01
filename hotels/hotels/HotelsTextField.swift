@@ -71,6 +71,11 @@ open class HotelsTextField: UITextField {
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
+
+    open override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        setup()
+    }
     
     func setup() {
         self.layer.borderWidth = 1
@@ -85,10 +90,8 @@ open class HotelsTextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
     }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
     }
 }

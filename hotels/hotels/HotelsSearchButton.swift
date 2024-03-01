@@ -11,13 +11,14 @@ final class HotelsSearchButton: UIView {
     
     // MARK: - Private properties
     
-    private let button: UIButton = {
+    private let button: HotelsGradientButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.image = UIImage(named: "ic_search")
         configuration.title = "Search"
         configuration.imagePadding = 4
         configuration.baseForegroundColor = .white
-        let button = UIButton(configuration: configuration)
+        let button = HotelsGradientButton(type: .custom)
+        button.configuration = configuration
         button.translatesAutoresizingMaskIntoConstraints = false
 
         button.layer.masksToBounds = false

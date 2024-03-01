@@ -26,6 +26,8 @@
 		8E7FCC422B8A794E002FE4FE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7FCC412B8A794E002FE4FE /* SnapKit */; };
 		8E7FCC442B8A794E002FE4FE /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7FCC432B8A794E002FE4FE /* SnapKit-Dynamic */; };
 		8EE5D79A2B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE5D7992B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift */; };
+		8EE5D79C2B9136ED00FC30D9 /* HotelsGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE5D79B2B9136ED00FC30D9 /* HotelsGradientButton.swift */; };
+		8EE5D79E2B91620C00FC30D9 /* HotelsRoundedGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE5D79D2B91620C00FC30D9 /* HotelsRoundedGradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		8E7FCC382B8A3852002FE4FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E7FCC3E2B8A791E002FE4FE /* Hotels_NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hotels_NavigationBar.swift; sourceTree = "<group>"; };
 		8EE5D7992B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsArticleDetailsViewController.swift; sourceTree = "<group>"; };
+		8EE5D79B2B9136ED00FC30D9 /* HotelsGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsGradientButton.swift; sourceTree = "<group>"; };
+		8EE5D79D2B91620C00FC30D9 /* HotelsRoundedGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsRoundedGradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 				8E4920B92B8C22FB006AE8B4 /* HotelsSearchButton.swift */,
 				8E4920B72B8C00D1006AE8B4 /* HotelsTextField.swift */,
 				8E4920B52B8BFE11006AE8B4 /* HotelsLabel.swift */,
+				8EE5D79B2B9136ED00FC30D9 /* HotelsGradientButton.swift */,
+				8EE5D79D2B91620C00FC30D9 /* HotelsRoundedGradientView.swift */,
 				8E7FCC332B8A3852002FE4FE /* Assets.xcassets */,
 				8E7FCC352B8A3852002FE4FE /* LaunchScreen.storyboard */,
 				8E7FCC382B8A3852002FE4FE /* Info.plist */,
@@ -184,6 +190,7 @@
 				8E4920B22B8BCEC8006AE8B4 /* HotelsStackView.swift in Sources */,
 				8E7FCC2F2B8A3851002FE4FE /* HotelsHomeViewController.swift in Sources */,
 				8E4920B02B8BB44F006AE8B4 /* HotelsDataManager.swift in Sources */,
+				8EE5D79E2B91620C00FC30D9 /* HotelsRoundedGradientView.swift in Sources */,
 				8E7639E72B8EB9BA0029A38D /* HotelsSubArticleView.swift in Sources */,
 				8E7639E32B8E75040029A38D /* HotelsSignInView.swift in Sources */,
 				8E4920B62B8BFE11006AE8B4 /* HotelsLabel.swift in Sources */,
@@ -195,6 +202,7 @@
 				8E7FCC3F2B8A791E002FE4FE /* Hotels_NavigationBar.swift in Sources */,
 				8E7FCC2D2B8A3851002FE4FE /* SceneDelegate.swift in Sources */,
 				8EE5D79A2B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift in Sources */,
+				8EE5D79C2B9136ED00FC30D9 /* HotelsGradientButton.swift in Sources */,
 				8E4920B82B8C00D1006AE8B4 /* HotelsTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

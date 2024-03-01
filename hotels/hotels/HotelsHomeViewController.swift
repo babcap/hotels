@@ -97,13 +97,13 @@ class HotelsHomeViewController: UIViewController {
         subArticlesView.addSubview(secondArticleView)
 
         firstArticleView.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(25)
+            $0.left.equalToSuperview()
             $0.bottom.top.equalToSuperview()
             $0.right.equalTo(subArticlesView.snp.centerX).inset(5)
         }
 
         secondArticleView.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(25)
+            $0.right.equalToSuperview()
             $0.bottom.top.equalToSuperview()
             $0.left.equalTo(subArticlesView.snp.centerX).offset(5)
         }
@@ -116,7 +116,7 @@ extension HotelsHomeViewController {
     }
 
     func showWelcomeArticle() {
-        
+        showArticle(model: HotelsDataManager.shared.HotelsWelcomeArticle)
     }
 
     func HotelsSignIn() {

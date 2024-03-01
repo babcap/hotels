@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HotelsSubArticleView: UIView {
+final class HotelsSubArticleView: HotelsRoundedGradientView {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -17,7 +17,7 @@ final class HotelsSubArticleView: UIView {
     private let titleLabel = UILabel(font: .helvetica(style: .thin, size: 16),
                                      title: HotelsDataManager.shared.HotelsMainArticle.description,
                                         color: .white, lines: 1)
-    private lazy var showButton = UIButton(type: .custom)
+    private lazy var showButton = HotelsGradientButton(type: .custom)
     private var viewModel: HotelsArticleViewModel
 
     var onShow: HotelsArticle_VoidBlock?
