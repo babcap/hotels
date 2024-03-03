@@ -42,6 +42,9 @@ final class HotelsSearchViewController: UIViewController {
 
     private var hotels: [HotelViewModel] = [
         .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
+        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
+        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
+        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
         .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker])
     ]
 
@@ -85,6 +88,16 @@ final class HotelsSearchViewController: UIViewController {
 extension HotelsSearchViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        debugPrint(indexPath.row)
+        var model: HotelViewModel
+        if indexPath.row == 1 {
+            model = hotels[0]
+        } else {
+            let index = (indexPath.row - 1)/2
+            model = hotels[index]
+        }
+        let vc = HotelsHotelDetailsViewController(viewModel: model)
+        self.navigationController?.pushViewController(vc, animated: false)
     }
  
 }

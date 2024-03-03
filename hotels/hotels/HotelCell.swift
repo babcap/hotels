@@ -10,6 +10,8 @@ import UIKit
 struct HotelViewModel {
     let name: String
     let location: String
+    var phone: String?
+    var email: String?
     let starsCount: Int
     let photo: UIImage
     let conditions: Set<HotelsConditions>
