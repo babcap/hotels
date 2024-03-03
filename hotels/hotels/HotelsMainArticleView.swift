@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HotelsMainArticleView: HotelsRoundedGradientView {
+final class HotelsMainArticleView: HotelsFilledGradientView {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -22,7 +22,7 @@ final class HotelsMainArticleView: HotelsRoundedGradientView {
     var onShow: HotelsArticle_VoidBlock?
 
     required init() {
-        super.init(frame: .zero)
+        super.init()
 
         Hotels_setupViews()
     }

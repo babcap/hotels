@@ -62,10 +62,20 @@ extension HotelsGradientView {
     }
 }
 
-class HotelsRoundedGradientView: UIView {
+class HotelsFilledGradientView: UIView {
+    var isCornered: Bool = false
+
+    required init() {
+        super.init(frame: .zero)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        applyGradient(isRounded: true, with: [.gradientBackground2, .gradientBackground1, .gradientBackground2], gradient: .horizontal)
+        applyGradient(isRounded: !isCornered, with: [.gradientBackground2, .gradientBackground1, .gradientBackground2], gradient: .horizontal)
         layer.borderColor = UIColor.colorBorder.cgColor
         layer.borderWidth = 1
     }

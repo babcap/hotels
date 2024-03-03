@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HotelsSubArticleView: HotelsRoundedGradientView {
+final class HotelsSubArticleView: HotelsFilledGradientView {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -24,13 +24,17 @@ final class HotelsSubArticleView: HotelsRoundedGradientView {
 
     required init(model: HotelsArticleViewModel) {
         self.viewModel = model
-        super.init(frame: .zero)
+        super.init()
 
         Hotels_setupViews()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override required init() {
+        fatalError("init() has not been implemented")
     }
 }
 

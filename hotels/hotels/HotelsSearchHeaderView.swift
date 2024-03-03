@@ -12,18 +12,34 @@ final class HotelsSearchHeaderView: UIView {
     var onSearchTap: HotelsStartSearch_VoidBlock?
     
     private lazy var headerContainer = UIView()
-    private lazy var searchContainer = HotelsRoundedGradientView()
+    private lazy var searchContainer = HotelsFilledGradientView()
     
-    private lazy var cityLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
-    private lazy var countryLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
-    private lazy var startDateLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
-    private lazy var endDateLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
+    private lazy var cityLabel: UILabel = {
+        let view = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
+        view.isUserInteractionEnabled = false
+        return view
+    }()
+    private lazy var countryLabel: UILabel = {
+        let view = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
+        view.isUserInteractionEnabled = false
+        return view
+    }()
+    private lazy var startDateLabel: UILabel = {
+        let view = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
+        view.isUserInteractionEnabled = false
+        return view
+    }()
+    private lazy var endDateLabel: UILabel = {
+        let view = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
+        view.isUserInteractionEnabled = false
+        return view
+    }()
 
     private lazy var countryTextField: HotelsTextField = {
         let view = HotelsTextField()
         view.attributedPlaceholder = NSAttributedString(
             string: "Netherlands",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.colorTextFieldText,
                          .font:  HotelFont.helvetica(style: .thin, size: 24)]
         )
         return view
@@ -33,7 +49,7 @@ final class HotelsSearchHeaderView: UIView {
         let view = HotelsTextField()
         view.attributedPlaceholder = NSAttributedString(
             string: "Amsterdam",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.colorTextFieldText,
                          .font:  HotelFont.helvetica(style: .thin, size: 24)]
         )
         return view
@@ -43,7 +59,7 @@ final class HotelsSearchHeaderView: UIView {
         let view = HotelsTextField()
         view.attributedPlaceholder = NSAttributedString(
             string: "12 Dec 24",
-            attributes: [.foregroundColor: UIColor.placeholderText,
+            attributes: [.foregroundColor: UIColor.colorTextFieldText,
                          .font: HotelFont.helvetica(style: .thin, size: 24)]
         )
         view.tag = 0
@@ -54,7 +70,7 @@ final class HotelsSearchHeaderView: UIView {
         let view = HotelsTextField()
         view.attributedPlaceholder = NSAttributedString(
             string: "14 Dec 24",
-            attributes: [.foregroundColor: UIColor.placeholderText,
+            attributes: [.foregroundColor: UIColor.colorTextFieldText,
                          .font: HotelFont.helvetica(style: .thin, size: 24)]
         )
 
@@ -62,7 +78,11 @@ final class HotelsSearchHeaderView: UIView {
         return view
     }()
 
-    private lazy var ratingLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), title: "Rating", color: .white)
+    private lazy var ratingLabel: UILabel = {
+        let view = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), title: "Rating", color: .white)
+        view.isUserInteractionEnabled = false
+        return view
+    }()
     private lazy var ratingView: CosmosView = {
         let view = CosmosView()
         view.settings.starSize = 54
@@ -85,6 +105,7 @@ final class HotelsSearchHeaderView: UIView {
     required init() {
         super.init(frame: .zero)
 
+        self.translatesAutoresizingMaskIntoConstraints = false
         HotelsSetupText()
         Hotels_setupViews()
     }
@@ -205,8 +226,7 @@ final class HotelsSearchHeaderView: UIView {
 
 
         searchButton.onSearch = {
-            let conditions = HotelsConditions.allCases
-            self.onSearchTap?(.init(country: self.countryTextField.text ?? "", conditions: self.conditionsView.selectedCells.map { HotelsConditions.allCases[$0]}))
+            self.onSearchTap?(.init(country: self.countryTextField.text ?? "", conditions: (Set(self.conditionsView.selectedCells.map { HotelsConditions.allCases[$0]}))))
         }
     }
 

@@ -8,7 +8,7 @@
 import UIKit
 
 
-final class HotelsSignInView: HotelsRoundedGradientView {
+final class HotelsSignInView: HotelsFilledGradientView {
     private let titleLabel = UILabel(font: .helvetica(style: .medium, size: 18),
                                         title: "Sign in to your account to simplify registration",
                                         color: .white, lines: 0)
@@ -17,7 +17,7 @@ final class HotelsSignInView: HotelsRoundedGradientView {
     var onSignIn: Hotels_VoidBlock?
 
     required init() {
-        super.init(frame: .zero)
+        super.init()
 
         Hotels_setupViews()
     }

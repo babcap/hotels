@@ -79,6 +79,7 @@ extension HotelsConditionsView: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: HotelsConditionCell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelsConditionCell.reuseIdentifier, for: indexPath) as? HotelsConditionCell ?? HotelsConditionCell()
         cell.setTitle(HotelsConditions.allCases[indexPath.row].rawValue)
+        cell.isSelected = selectedCells.contains(indexPath.row)
         return cell
     }
 
@@ -137,7 +138,7 @@ final class HotelsConditionCell: UICollectionViewCell {
     func setColors(isSelected: Bool) {
         let titleColors: [UIColor] = isSelected ? [.gradient1, .gradient2, .gradient3, .gradient4] : [.colorTextFieldText, .colorTextFieldText, .colorTextFieldText, .colorTextFieldText]
         title.gradientColors =  titleColors.map({ $0.cgColor })
-        layer.borderColor = isSelected ? UIColor.white.cgColor : UIColor.colorTextFieldBorder.cgColor
+        layer.borderColor = isSelected ? UIColor.colorTextFieldBorder.cgColor : UIColor.colorTextFieldBorder.cgColor
     }
 
     func applyTitleGradient(isSelected: Bool) {

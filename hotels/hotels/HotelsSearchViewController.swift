@@ -27,7 +27,8 @@ final class HotelsSearchViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-//        tableView.register()
+        tableView.register(HotelCell.self, forCellReuseIdentifier: HotelCell.reuseIdentifier)
+        tableView.register(SectionSpacerCell.self, forCellReuseIdentifier: SectionSpacerCell.reuseIdentifier)
         tableView.canCancelContentTouches = false
         
         tableView.sectionHeaderTopPadding = 0
@@ -38,6 +39,11 @@ final class HotelsSearchViewController: UIViewController {
         
         return tableView
     }()
+
+    private var hotels: [HotelViewModel] = [
+        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
+        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker])
+    ]
 
     required init(viewModel: SearchViewModel) {
         self.viewModel = viewModel
@@ -89,21 +95,34 @@ extension HotelsSearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 0
+        return hotels.count*2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        return UITableViewCell()
-        
+        if indexPath.row % 2 != 0 {
+            let cell: HotelCell = tableView.dequeueReusableCell(withIdentifier: HotelCell.reuseIdentifier, for: indexPath) as! HotelCell
+            cell.setupCell(with: .init(name: "test", location: "test", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino]))
+            return cell
+        } else {
+            let cell: SectionSpacerCell = tableView.dequeueReusableCell(withIdentifier: SectionSpacerCell.reuseIdentifier, for: indexPath) as! SectionSpacerCell
+            cell.backgroundColor = .clear
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         UITableView.automaticDimension
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row % 2 != 0 {
+            UITableView.automaticDimension
+        } else {
+            32
+        }
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let headerView = HotelsSearchHeaderView()
         return headerView
     }

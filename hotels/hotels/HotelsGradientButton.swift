@@ -9,6 +9,8 @@ import UIKit
 
 final class HotelsGradientButton: UIButton {
     var isTitleGold: Bool = false
+    var isBacgroundGold: Bool = false
+    var isCornered: Bool = false
 
     var gradientColors: [CGColor] = []
     var backgroundGradientColors: [CGColor] = []
@@ -20,7 +22,7 @@ final class HotelsGradientButton: UIButton {
             let titleColors: [UIColor] = [.gradient1, .gradient2, .gradient3, .gradient4]
             gradientColors = titleColors.map({ $0.cgColor })
         }
-        let backgroundColors: [UIColor] = [.gradientBackground1, .gradientBackground2]
+        let backgroundColors: [UIColor] = isBacgroundGold ? [.gradient1, .gradient2, .gradient3, .gradient4] : [.gradientBackground1, .gradientBackground2]
         backgroundGradientColors = backgroundColors.map({ $0.cgColor })
         if let gradientColor = UIColor.drawGradientColor(in: rect, colors: gradientColors) {
             self.setTitleColor(gradientColor, for: .normal)
@@ -40,7 +42,9 @@ final class HotelsGradientButton: UIButton {
         layer.borderColor = UIColor.colorBorderGradient.cgColor
         layer.borderWidth = 0.5
 
-        layer.cornerRadius = rect.height / 2
+        if !isCornered {
+            layer.cornerRadius = rect.height / 2
+        }
         clipsToBounds = true
     }
 }

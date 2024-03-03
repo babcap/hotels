@@ -13,10 +13,10 @@ struct SearchViewModel {
     var country: String?
     var startDate: String?
     var endDate: String?
-    var conditions: [HotelsConditions] = []
+    var conditions: Set<HotelsConditions> = []
 }
 
-final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate {
+final class HotelsHomeSearchView: HotelsFilledGradientView, UITextFieldDelegate {
     
     private let titleLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
     private let startDateLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
@@ -25,7 +25,7 @@ final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate
         let view = HotelsTextField()
         view.attributedPlaceholder = NSAttributedString(
             string: "Netherlands",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.colorTextFieldText,
                          .font:  HotelFont.helvetica(style: .thin, size: 24)]
         )
         return view
@@ -35,7 +35,7 @@ final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate
         let view = HotelsTextField()
         view.attributedPlaceholder = NSAttributedString(
             string: "12 Dec 24",
-            attributes: [.foregroundColor: UIColor.placeholderText,
+            attributes: [.foregroundColor: UIColor.colorTextFieldText,
                          .font: HotelFont.helvetica(style: .thin, size: 24)]
         )
         view.delegate = self
@@ -47,7 +47,7 @@ final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate
         let view = HotelsTextField()
         view.attributedPlaceholder = NSAttributedString(
             string: "14 Dec 24",
-            attributes: [.foregroundColor: UIColor.placeholderText,
+            attributes: [.foregroundColor: UIColor.colorTextFieldText,
                          .font: HotelFont.helvetica(style: .thin, size: 24)]
         )
 
@@ -64,7 +64,7 @@ final class HotelsHomeSearchView: HotelsRoundedGradientView, UITextFieldDelegate
     var onSearchTap: HotelsStartSearch_VoidBlock?
     
     required init() {
-        super.init(frame: .zero)
+        super.init()
 
         HotelsSetupText()
         Hotels_setupViews()
