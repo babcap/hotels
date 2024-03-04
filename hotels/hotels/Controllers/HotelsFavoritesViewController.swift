@@ -145,4 +145,22 @@ extension HotelsFavoritesViewController: UITableViewDataSource {
         }
         return header
     }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let header = HotelsCreateHotelButtonView()
+        header.onCreate = {
+            let vc = HotelsCreateHotelViewController()
+            vc.onCreated = {
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: false)
+                }
+            }
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        UITableView.automaticDimension
+    }
 }
