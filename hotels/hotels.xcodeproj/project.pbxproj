@@ -34,6 +34,7 @@
 		8EE44A462B9568B300874FA5 /* HotelsImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE44A452B9568B300874FA5 /* HotelsImagePicker.swift */; };
 		8EE44A482B956AEE00874FA5 /* HotelsPhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE44A472B956AEE00874FA5 /* HotelsPhotoManager.swift */; };
 		8EE44A4A2B956E2300874FA5 /* HotelsBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE44A492B956E2300874FA5 /* HotelsBaseController.swift */; };
+		8EE44A4C2B95C59B00874FA5 /* HotelsFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE44A4B2B95C59B00874FA5 /* HotelsFavoritesViewController.swift */; };
 		8EE5D79A2B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE5D7992B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift */; };
 		8EE5D79C2B9136ED00FC30D9 /* HotelsGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE5D79B2B9136ED00FC30D9 /* HotelsGradientButton.swift */; };
 		8EE5D79E2B91620C00FC30D9 /* HotelsFilledGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE5D79D2B91620C00FC30D9 /* HotelsFilledGradientView.swift */; };
@@ -72,6 +73,7 @@
 		8EE44A452B9568B300874FA5 /* HotelsImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsImagePicker.swift; sourceTree = "<group>"; };
 		8EE44A472B956AEE00874FA5 /* HotelsPhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsPhotoManager.swift; sourceTree = "<group>"; };
 		8EE44A492B956E2300874FA5 /* HotelsBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsBaseController.swift; sourceTree = "<group>"; };
+		8EE44A4B2B95C59B00874FA5 /* HotelsFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsFavoritesViewController.swift; sourceTree = "<group>"; };
 		8EE5D7992B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsArticleDetailsViewController.swift; sourceTree = "<group>"; };
 		8EE5D79B2B9136ED00FC30D9 /* HotelsGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsGradientButton.swift; sourceTree = "<group>"; };
 		8EE5D79D2B91620C00FC30D9 /* HotelsFilledGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsFilledGradientView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				8EE5D7992B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift */,
 				8EBF282D2B95028D0009C8E5 /* HotelsHotelDetailsViewController.swift */,
 				8EE5D7A12B917D3B00FC30D9 /* HotelsSearchViewController.swift */,
+				8EE44A4B2B95C59B00874FA5 /* HotelsFavoritesViewController.swift */,
 				8EBF28332B953A410009C8E5 /* HotelsProfileViewController.swift */,
 				8EE44A492B956E2300874FA5 /* HotelsBaseController.swift */,
 			);
@@ -284,6 +287,7 @@
 				8EBF28342B953A410009C8E5 /* HotelsProfileViewController.swift in Sources */,
 				8E7FCC2D2B8A3851002FE4FE /* SceneDelegate.swift in Sources */,
 				8EE5D79A2B90FFE100FC30D9 /* HotelsArticleDetailsViewController.swift in Sources */,
+				8EE44A4C2B95C59B00874FA5 /* HotelsFavoritesViewController.swift in Sources */,
 				8EBF28362B9544DC0009C8E5 /* HotelsAuthorizationManager.swift in Sources */,
 				8EE5D7A22B917D3B00FC30D9 /* HotelsSearchViewController.swift in Sources */,
 				8EE5D79C2B9136ED00FC30D9 /* HotelsGradientButton.swift in Sources */,

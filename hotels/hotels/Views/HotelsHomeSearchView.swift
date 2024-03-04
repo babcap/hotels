@@ -20,11 +20,12 @@ struct SearchViewModel {
     }
 }
 
-final class HotelsHomeSearchView: HotelsFilledGradientView, UITextFieldDelegate {
-    
-    private let titleLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
-    private let startDateLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
-    private let endDateLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
+final class HotelsHomeSearchView: UIView, UITextFieldDelegate {
+
+    private lazy var headerContainer = HotelsFilledGradientView()
+    private lazy var titleLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
+    private lazy var startDateLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
+    private lazy var endDateLabel = UILabel(font: HotelFont.helvetica(style: .medium, size: 18), color: .white)
     private lazy var cityTextField: HotelsTextField = {
         let view = HotelsTextField()
         view.attributedPlaceholder = NSAttributedString(
@@ -60,16 +61,15 @@ final class HotelsHomeSearchView: HotelsFilledGradientView, UITextFieldDelegate 
         return view
     }()
 
-    private let searchButton = HotelsSearchButton()
-
-    private var selectedTextField: UITextField?
+    private lazy var searchButton = HotelsSearchButton()
 
     private var searchVM = SearchViewModel()
     var onSearchTap: HotelsStartSearch_VoidBlock?
     
     required init() {
-        super.init()
+        super.init(frame: .zero)
 
+        self.translatesAutoresizingMaskIntoConstraints = true
         HotelsSetupText()
         Hotels_setupViews()
     }
@@ -79,14 +79,20 @@ final class HotelsHomeSearchView: HotelsFilledGradientView, UITextFieldDelegate 
     }
 
     private func Hotels_setupViews() {
-        addSubview(titleLabel)
-        addSubview(cityTextField)
-        addSubview(startDateLabel)
-        addSubview(endDateLabel)
-        addSubview(startDateTextField)
-        addSubview(endDateTextField)
-        addSubview(searchButton)
-        
+        addSubview(headerContainer)
+        headerContainer.addSubview(titleLabel)
+        headerContainer.addSubview(cityTextField)
+        headerContainer.addSubview(startDateLabel)
+        headerContainer.addSubview(endDateLabel)
+        headerContainer.addSubview(startDateTextField)
+        headerContainer.addSubview(endDateTextField)
+        headerContainer.addSubview(searchButton)
+
+        headerContainer.snp.makeConstraints() {
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(self.snp.bottom).priority(.high)
+        }
 
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(24)
@@ -95,37 +101,39 @@ final class HotelsHomeSearchView: HotelsFilledGradientView, UITextFieldDelegate 
         }
         cityTextField.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(32)
+            $0.left.equalToSuperview().offset(32)
+            $0.right.equalToSuperview().inset(32)
             $0.height.equalTo(50)
         }
         startDateLabel.snp.makeConstraints {
             $0.top.equalTo(cityTextField.snp.bottom).offset(8)
             $0.left.equalToSuperview().inset(32)
             $0.height.equalTo(22)
-            $0.right.equalTo(self.snp.centerX).inset(4)
+            $0.right.equalTo(headerContainer.snp.centerX).inset(4)
         }
         startDateTextField.snp.makeConstraints {
             $0.top.equalTo(startDateLabel.snp.bottom).offset(8)
             $0.left.equalToSuperview().inset(32)
             $0.height.equalTo(50)
-            $0.right.equalTo(self.snp.centerX).inset(4)
+            $0.right.equalTo(headerContainer.snp.centerX).inset(4)
         }
     
         endDateLabel.snp.makeConstraints {
             $0.top.equalTo(cityTextField.snp.bottom).offset(8)
             $0.right.equalToSuperview().inset(32)
             $0.height.equalTo(22)
-            $0.left.equalTo(self.snp.centerX).offset(4)
+            $0.left.equalTo(headerContainer.snp.centerX).offset(4)
         }
         endDateTextField.snp.makeConstraints {
             $0.top.equalTo(endDateLabel.snp.bottom).offset(8)
             $0.right.equalToSuperview().inset(32)
             $0.height.equalTo(50)
-            $0.left.equalTo(self.snp.centerX).offset(4)
+            $0.left.equalTo(headerContainer.snp.centerX).offset(4)
         }
         searchButton.snp.makeConstraints {
             $0.top.equalTo(endDateTextField.snp.bottom).offset(30)
-            $0.right.left.equalToSuperview().inset(32)
+            $0.left.equalToSuperview().offset(32)
+            $0.right.equalToSuperview().inset(32)
             $0.bottom.equalToSuperview().inset(26)
         }
         searchButton.onSearch = {

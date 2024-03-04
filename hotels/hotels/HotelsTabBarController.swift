@@ -69,7 +69,7 @@ private extension HotelsTabBarController {
     func HotelssetupTabs() {
         controllers.append(HotelsHomeViewController())
         controllers.append(HotelsSearchViewController())
-        controllers.append(HotelsSearchViewController())
+        controllers.append(HotelsFavoritesViewController())
         controllers.append(HotelsProfileViewController())
         var Hotelsqwerty: Int { 99 }
     }
