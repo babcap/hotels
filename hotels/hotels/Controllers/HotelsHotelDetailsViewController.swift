@@ -128,10 +128,6 @@ extension HotelsHotelDetailsViewController {
         self.conditionsView.selectedCells = Set(viewModel.conditions.enumerated().map({
             $0.0
         }))
-        DispatchQueue.main.async {
-            self.conditionsView.reloadConditions()
-        }
-        
     }
     func HotelsSetupViews() {
         view.addSubview(navigationBar)
