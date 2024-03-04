@@ -11,7 +11,7 @@ final class HotelsFavoritesViewController: UIViewController {
     
     private var hotels: [HotelViewModel] = {
         var hotels: [HotelViewModel] = [
-            .init(name: "Paris Monte-Carlo", location: "Pl. du Casino, 98000 Monaco", phone: "+377 98 06 30 00", email: "mailto:resort@sbm.mc", starsCount: 5, photo: UIImage(named: "ic_hotel_first")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar]),
+            .init(name: "Paris Monte-Carlo", location: "Pl. du Casino, 98000 Monaco", phone: "+377 98 06 30 00", email: "resort@sbm.mc", starsCount: 5, photo: UIImage(named: "ic_hotel_first")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar]),
             .init(name: "Casino Baden-Baden", location: "Ludwig-Wilhelm-Platz 4, 76530 Baden-Baden", phone: "+49 7221 9000", email: "badenbaden@gmail.com", starsCount: 5, photo: UIImage(named: "ic_hotel_second")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar])
         ]
         guard let hotelsDict = UserDefaults.standard.value(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] else {
@@ -121,6 +121,9 @@ extension HotelsFavoritesViewController: UITableViewDataSource {
                 model = hotels[index]
             }
             cell.setupCell(with: model)
+            cell.onFeedback = {
+                self.showFeedBackAlert()
+            }
             return cell
         } else {
             let cell: SectionSpacerCell = tableView.dequeueReusableCell(withIdentifier: SectionSpacerCell.reuseIdentifier, for: indexPath) as! SectionSpacerCell

@@ -50,6 +50,46 @@ extension HotelsBaseController {
         self.present(alertController, animated: true, completion: nil)
     }
 
+    func showBookAlert() {
+        let alertController = UIAlertController(title: "Booking", message: "Please enter your phone number, and we will contact you to clarify the details.", preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "+1 (123)-456-7890"
+        }
+        let saveAction = UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            guard let phone = firstTextField.text,  !phone.isEmpty else {
+                self.showErrorAlert(type: .emptyFields)
+                return
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in })
+
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+
+    func showFeedBackAlert() {
+        let alertController = UIAlertController(title: "Feedback", message: "Share your impressions", preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = ""
+        }
+        let saveAction = UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            guard let phone = firstTextField.text,  !phone.isEmpty else {
+                self.showErrorAlert(type: .emptyFields)
+                return
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in })
+
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+
     func showErrorAlert(type: ErrorType) {
         let alertController = UIAlertController(title: "Error", message: type.rawValue, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in

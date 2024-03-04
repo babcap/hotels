@@ -235,5 +235,6 @@ extension HotelsHotelDetailsViewController {
     
     
     @objc func onBookButton() {
+        showBookAlert()
     }
 }

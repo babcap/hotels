@@ -34,7 +34,6 @@ final class HotelsTabBarButton: UIButton {
         
         let isIPad = UIDevice.current.userInterfaceIdiom == .pad
         var configuration = UIButton.Configuration.plain()
-//        configuration.imagePlacement = isIPad ? .leading : .top
         configuration.cornerStyle = .medium
         configuration.baseBackgroundColor = .clear
         configuration.image = type.icon?.withRenderingMode(.alwaysTemplate)
@@ -44,7 +43,6 @@ final class HotelsTabBarButton: UIButton {
         button.configuration = configuration
 
         button.tintColor = .white.withAlphaComponent(0.5)
-//        button.layer.masksToBounds = false
         button.clipsToBounds = true
         button.layer.cornerRadius = 12
          

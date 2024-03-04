@@ -39,6 +39,7 @@ final class SectionSpacerCell: UITableViewCell {
 final class HotelCell: UITableViewCell {
 
     static let reuseIdentifier = "HotelCell"
+    var onFeedback: Hotels_VoidBlock?
 
     private lazy var topView: UIView = {
         let view = UIView()
@@ -157,6 +158,13 @@ final class HotelCell: UITableViewCell {
         self.starLabel.text = "\(viewModel.starsCount)"
         self.hotelsImageView.image = viewModel.photo
     }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard isUserInteractionEnabled, !isHidden, alpha >= 0.01, self.point(inside: point, with: event) else { return self }
+        if self.feedBackButton.point(inside: convert(point, to: feedBackButton), with: event) {
+            return self.feedBackButton
+        } else { return nil }
+    }
 }
 
 private extension HotelCell {
@@ -243,6 +251,12 @@ private extension HotelCell {
             $0.height.equalTo(59)
             $0.left.right.bottom.equalToSuperview()
         }
+    
+        feedBackButton.addTarget(self, action: #selector(onFeedbackButton), for: .touchUpInside)
+    }
+
+    @objc func onFeedbackButton() {
+        onFeedback?()
     }
 
     func setupConditions(conditions: Set<HotelsConditions>) {
