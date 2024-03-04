@@ -24,7 +24,6 @@
 		8E7FCC372B8A3852002FE4FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7FCC352B8A3852002FE4FE /* LaunchScreen.storyboard */; };
 		8E7FCC3F2B8A791E002FE4FE /* Hotels_NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7FCC3E2B8A791E002FE4FE /* Hotels_NavigationBar.swift */; };
 		8E7FCC422B8A794E002FE4FE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7FCC412B8A794E002FE4FE /* SnapKit */; };
-		8E7FCC442B8A794E002FE4FE /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7FCC432B8A794E002FE4FE /* SnapKit-Dynamic */; };
 		8EBF282C2B94FFD60009C8E5 /* HotelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF282B2B94FFD60009C8E5 /* HotelCell.swift */; };
 		8EBF282E2B95028D0009C8E5 /* HotelsHotelDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF282D2B95028D0009C8E5 /* HotelsHotelDetailsViewController.swift */; };
 		8EBF28342B953A410009C8E5 /* HotelsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF28332B953A410009C8E5 /* HotelsProfileViewController.swift */; };
@@ -88,7 +87,6 @@
 			files = (
 				8EE5D7A52B918B0D00FC30D9 /* Cosmos in Frameworks */,
 				8E7FCC422B8A794E002FE4FE /* SnapKit in Frameworks */,
-				8E7FCC442B8A794E002FE4FE /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +199,6 @@
 			name = hotels;
 			packageProductDependencies = (
 				8E7FCC412B8A794E002FE4FE /* SnapKit */,
-				8E7FCC432B8A794E002FE4FE /* SnapKit-Dynamic */,
 				8EE5D7A42B918B0D00FC30D9 /* Cosmos */,
 			);
 			productName = hotels;
@@ -441,8 +438,10 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y9MMLR84UF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = hotels/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please provide acces to your camera to select photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please provide acces to your library to select photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -477,8 +476,10 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y9MMLR84UF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = hotels/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please provide acces to your camera to select photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please provide acces to your library to select photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -547,11 +548,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8E7FCC402B8A794E002FE4FE /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		8E7FCC432B8A794E002FE4FE /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8E7FCC402B8A794E002FE4FE /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 		8EE5D7A42B918B0D00FC30D9 /* Cosmos */ = {
 			isa = XCSwiftPackageProductDependency;
