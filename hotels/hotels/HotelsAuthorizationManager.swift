@@ -7,10 +7,25 @@
 
 import Foundation
 
+typealias HotelsBoolCompletion = ((Bool)->Void)
+
 struct HotelsUser {
     let login: String
     let password: String
     let imagePath: String
+    
+    enum Keys: String {
+        case login
+        case password
+        case imagePath
+    }
+    
+    func toDictionary() -> [String: String] {
+        [Keys.login.rawValue: login,
+         Keys.password.rawValue: password,
+         Keys.imagePath.rawValue: imagePath
+        ]
+    }
 }
 
 final class HotelsAuthorizationManager {
@@ -24,11 +39,32 @@ extension HotelsAuthorizationManager {
         user != nil
     }
 
-    func createUser(login: String, password: String) {
-        
+    func login(login: String, password: String, completion: HotelsBoolCompletion?) {
+        guard let user = UserDefaults.value(forKey: login) as? [String:String],
+              let storedPassword = user[HotelsUser.Keys.password.rawValue] else {
+            completion?(false)
+            return
+        }
+        self.user = .init(login: login, password: storedPassword, imagePath: user[HotelsUser.Keys.imagePath.rawValue] ?? "")
+        completion?(true)
     }
 
-    func deleteUser() {
-        
+    func createUser(login: String, password: String, completion: HotelsBoolCompletion?) {
+        let uuid = UUID()
+        let user = HotelsUser(login: login,
+                              password: password,
+                              imagePath: "\(uuid)")
+        self.user = user
+        UserDefaults.standard.set(user.toDictionary(), forKey: login)
+        completion?(true)
+    }
+
+    func deleteUser(compltion: HotelsBoolCompletion?) {
+        guard let user else {
+            compltion?(false)
+            return
+        }
+        UserDefaults.standard.removeObject(forKey: user.login)
+        compltion?(true)
     }
 }
