@@ -14,6 +14,10 @@ struct SearchViewModel {
     var startDate: String?
     var endDate: String?
     var conditions: Set<HotelsConditions> = []
+
+    static func empty() -> SearchViewModel {
+        .init()
+    }
 }
 
 final class HotelsHomeSearchView: HotelsFilledGradientView, UITextFieldDelegate {

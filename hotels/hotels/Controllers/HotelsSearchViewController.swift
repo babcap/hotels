@@ -48,8 +48,8 @@ final class HotelsSearchViewController: UIViewController {
         .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker])
     ]
 
-    required init(viewModel: SearchViewModel) {
-        self.viewModel = viewModel
+    required init(viewModel: SearchViewModel? = nil) {
+        self.viewModel = viewModel ?? .empty()
         super.init(nibName: nil, bundle: nil)
     }
 
