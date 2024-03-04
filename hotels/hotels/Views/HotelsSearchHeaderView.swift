@@ -10,7 +10,7 @@ import Cosmos
 
 final class HotelsSearchHeaderView: UIView {
     var onSearchTap: HotelsStartSearch_VoidBlock?
-    let viewModel: SearchViewModel
+    var viewModel: SearchViewModel
     
     private lazy var headerContainer = UIView()
     private lazy var searchContainer = HotelsFilledGradientView()
@@ -91,6 +91,9 @@ final class HotelsSearchHeaderView: UIView {
         view.settings.starMargin = (UIScreen.main.bounds.width - (50 + 54*5))/4
         view.settings.filledImage = UIImage(named: "ic_filled_star")!
         view.settings.emptyImage = UIImage(named: "ic_empty_star")!
+        view.didFinishTouchingCosmos = {
+            self.viewModel.rating = Int($0)
+        }
         return view
     }()
 
@@ -228,7 +231,7 @@ final class HotelsSearchHeaderView: UIView {
 
 
         searchButton.onSearch = {
-            self.onSearchTap?(.init(country: self.countryTextField.text ?? "", conditions: (Set(self.conditionsView.selectedCells.map { HotelsConditions.allCases[$0]}))))
+            self.onSearchTap?(.init(country: self.countryTextField.text ?? "", rating: self.viewModel.rating, conditions: (Set(self.conditionsView.selectedCells.map { HotelsConditions.allCases[$0]}))))
         }
     }
 

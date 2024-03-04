@@ -11,24 +11,68 @@ struct HotelViewModel {
     enum Keys: String {
         case hotels
         case name
-        case location
+        case counrty
+        case city
+        case adress
         case phone
         case email
         case starsCount
+        case photoPath
         case photo
         case conditions
+        case isFavorite
     }
-
+    
     let name: String
-    let location: String
+    let country: String
+    let city: String
+    let adress: String
     var phone: String?
     var email: String?
     let starsCount: Int
     let photo: UIImage
+    var photoPath: String?
     let conditions: Set<HotelsConditions>
+    var isFavorite: Bool = false
+    
+    var location: String {
+        [country, city, adress].joined(separator: ",")
+    }
 
     func matchedConditions(with matches: Set<HotelsConditions>) -> Set<HotelsConditions> {
         return conditions.intersection(matches)
+    }
+
+    func toDict() -> [String: [String: Any]] {
+        var dict: [String: Any] = [:]
+        dict[HotelViewModel.Keys.name.rawValue] = name
+        dict[HotelViewModel.Keys.counrty.rawValue] = country
+        dict[HotelViewModel.Keys.city.rawValue] = city
+        dict[HotelViewModel.Keys.adress.rawValue] = adress
+        dict[HotelViewModel.Keys.phone.rawValue] = phone
+        dict[HotelViewModel.Keys.email.rawValue] = email
+        dict[HotelViewModel.Keys.starsCount.rawValue] = "\(starsCount)"
+        dict[HotelViewModel.Keys.photoPath.rawValue] = photoPath
+        dict[HotelViewModel.Keys.conditions.rawValue] = conditions.enumerated().map({
+            $0.0
+        })
+        dict[HotelViewModel.Keys.isFavorite.rawValue] = isFavorite
+        return [name: dict]
+    }
+
+    static func fromDict(hotelsDict: [String: Any]) -> HotelViewModel {
+        let name = hotelsDict[HotelViewModel.Keys.name.rawValue] as? String ?? ""
+        let country = hotelsDict[HotelViewModel.Keys.counrty.rawValue] as? String ?? ""
+        let city = hotelsDict[HotelViewModel.Keys.city.rawValue] as? String ?? ""
+        let adress = hotelsDict[HotelViewModel.Keys.adress.rawValue] as? String ?? ""
+        let phone = hotelsDict[HotelViewModel.Keys.phone.rawValue] as? String ?? ""
+        let email = hotelsDict[HotelViewModel.Keys.email.rawValue] as? String ?? ""
+        let starsCount = Int(hotelsDict[HotelViewModel.Keys.starsCount.rawValue] as? String ?? "") ?? 1
+        let isFavorite = hotelsDict[HotelViewModel.Keys.isFavorite.rawValue] as? Bool ?? false
+        let photoPath = hotelsDict[HotelViewModel.Keys.photoPath.rawValue] as? String ?? ""
+        let photo = HotelsPhotoManager.shared.loadImageFromDiskWith(fileName: photoPath) ?? UIImage(named: "ic_hotel_first")!
+        let conditions = hotelsDict[HotelViewModel.Keys.conditions.rawValue] as? Set<HotelsConditions> ?? Set<HotelsConditions>()
+        return .init(name: name, country: country, city: city, adress: adress, phone: phone, email: email, starsCount: starsCount, photo: photo, conditions: conditions, isFavorite: isFavorite)
     }
 }
 

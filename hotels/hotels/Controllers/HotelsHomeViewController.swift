@@ -40,7 +40,6 @@ class HotelsHomeViewController: UIViewController {
         HotelsSetupViews()
     }
 
-
     private func HotelsSetupViews() {
         view.addSubview(navigationBar)
         view.addSubview(scrollView)

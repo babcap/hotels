@@ -42,22 +42,15 @@ final class HotelsSearchViewController: UIViewController {
 
     private var hotels: [HotelViewModel] = {
         var hotels: [HotelViewModel] = [
-            .init(name: "Paris Monte-Carlo", location: "Pl. du Casino, 98000 Monaco", phone: "+377 98 06 30 00", email: "resort@sbm.mc", starsCount: 5, photo: UIImage(named: "ic_hotel_first")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar]),
-            .init(name: "Casino Baden-Baden", location: "Ludwig-Wilhelm-Platz 4, 76530 Baden-Baden", phone: "+49 7221 9000", email: "badenbaden@gmail.com", starsCount: 5, photo: UIImage(named: "ic_hotel_second")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar])
+            .init(name: "Paris Monte-Carlo", country: "Monaco", city: "Monte-Carlo", adress: "Pl. du Casino", phone: "+377 98 06 30 00", email: "resort@sbm.mc", starsCount: 5, photo: UIImage(named: "ic_hotel_first")!, conditions: [.pool, .sauna, .gym, .roulette, .restaurant, .bar]),
+            .init(name: "Casino Baden-Baden", country: "Germany", city: "Baden-Bade", adress: "Ludwig-Wilhelm-Platz 4, 76530", phone: "+49 7221 9000", email: "badenbaden@gmail.com", starsCount: 5, photo: UIImage(named: "ic_hotel_second")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar])
         ]
         guard let hotelsDict = UserDefaults.standard.value(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] else {
             return hotels
         }
         hotelsDict.keys.forEach {
             if let hotel = hotelsDict[$0] {
-                let name = hotel[HotelViewModel.Keys.name.rawValue] as? String ?? ""
-                let location = hotel[HotelViewModel.Keys.location.rawValue] as? String ?? ""
-                let starsCount = Int(hotel[HotelViewModel.Keys.starsCount.rawValue] as? String ?? "") ?? 1
-                let photo = HotelsPhotoManager.shared.loadImageFromDiskWith(fileName: hotel[HotelViewModel.Keys.photo.rawValue] as? String ?? "") ?? UIImage(named: "ic_hotel_first")!
-                let conditions = Set((hotel[HotelViewModel.Keys.conditions.rawValue] as? [Int] ?? []).map {
-                    HotelsConditions.allCases[$0]
-                })
-                hotels.append(.init(name: name, location: location, starsCount: starsCount, photo: photo, conditions: conditions))
+                hotels.append(HotelViewModel.fromDict(hotelsDict: hotel))
             }
         }
         return hotels

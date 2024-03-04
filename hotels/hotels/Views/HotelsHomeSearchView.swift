@@ -13,6 +13,7 @@ struct SearchViewModel {
     var country: String?
     var startDate: String?
     var endDate: String?
+    var rating: Int?
     var conditions: Set<HotelsConditions> = []
 
     static func empty() -> SearchViewModel {

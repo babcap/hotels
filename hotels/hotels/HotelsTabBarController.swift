@@ -70,7 +70,7 @@ private extension HotelsTabBarController {
         controllers.append(HotelsHomeViewController())
         controllers.append(HotelsSearchViewController())
         controllers.append(HotelsFavoritesViewController())
-        controllers.append(HotelsProfileViewController())
+        controllers.append(HotelsCreateHotelViewController())
         var Hotelsqwerty: Int { 99 }
     }
     
