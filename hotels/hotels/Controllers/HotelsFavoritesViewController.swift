@@ -17,7 +17,6 @@ final class HotelsFavoritesViewController: UIViewController {
         guard let hotelsDict = UserDefaults.standard.object(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] else {
             return hotels
         }
-        debugPrint(hotels)
         hotelsDict.keys.forEach {
             if let hotel = hotelsDict[$0], let model = hotel[$0] as? [String: Any] {
                 hotels.append(HotelViewModel.fromDict(hotelsDict: model))

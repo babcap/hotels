@@ -30,7 +30,17 @@ final class Hotels_NavigationBar: UIView {
         return button
     }()
 
-    private lazy var logoImageView: UIImageView = {
+    private(set) lazy var rightButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.layer.cornerRadius = 48 / 2
+
+        button.snp.makeConstraints {
+            $0.size.equalTo(48)
+        }
+        return button
+    }()
+
+    private(set) lazy var logoImageView: UIImageView = {
         let view = UIImageView(image: UIImage(named: "ic_logo"))
         view.contentMode = .scaleAspectFit
         return view
@@ -41,12 +51,16 @@ final class Hotels_NavigationBar: UIView {
     // MARK: - Public properties
 
     var onLeftButton: Hotels_VoidBlock?
+    var onRightButton: Hotels_VoidBlock?
 
     // MARK: - Lifecycle
     
-    required init(isBackButtonHidden: Bool = false) {
+    required init(isBackButtonHidden: Bool = false,
+                  rightButtonImage: UIImage? = nil) {
         self.isBackButtonHidden = isBackButtonHidden
         super.init(frame: .zero)
+        self.rightButton.isHidden = rightButtonImage == nil
+        self.rightButton.setImage(rightButtonImage, for: .normal)
 
         Hotels_setupNavigationBar()
                 
@@ -79,11 +93,16 @@ private extension Hotels_NavigationBar {
         }
 
         navigationBarView.addSubview(logoImageView)
+        navigationBarView.addSubview(rightButton)
     
         logoImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(28)
+            $0.bottom.equalToSuperview().inset(18)
             $0.width.height.equalTo(58)
+        }
+        rightButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().inset(11)
         }
     
         if !isBackButtonHidden {
@@ -105,6 +124,8 @@ private extension Hotels_NavigationBar {
             }
 
             backButton.addTarget(self, action: #selector(Hotels_onBackButtonAction), for: .touchUpInside)
+            rightButton.addTarget(self, action: #selector(Hotels_onRightButtonAction), for: .touchUpInside)
+
         }
 
     }
@@ -112,6 +133,11 @@ private extension Hotels_NavigationBar {
     @objc func Hotels_onBackButtonAction() {
         var Hotels_qweswty: Int { 0 }
         onLeftButton?()
+    }
+
+    @objc func Hotels_onRightButtonAction() {
+        var Hotels_qweswty: Int { 0 }
+        onRightButton?()
     }
 }
 

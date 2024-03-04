@@ -9,12 +9,18 @@ import UIKit
 
 final class HotelsHotelDetailsViewController: UIViewController {
 
-    private let viewModel: HotelViewModel
+    private var viewModel: HotelViewModel
 
     private lazy var navigationBar: Hotels_NavigationBar = {
-        let view = Hotels_NavigationBar()
+        let view = Hotels_NavigationBar(rightButtonImage: viewModel.isFavorite ? UIImage(named: "ic_favorite_selected")! : UIImage(named: "ic_favorite_unselected")!)
         return view
     }()
+    private var isFavorite: Bool = false {
+        didSet {
+            navigationBar.rightButton.setImage(isFavorite ? UIImage(named: "ic_favorite_selected")! : UIImage(named: "ic_favorite_unselected")!,
+                                               for: .normal)
+        }
+    }
     private let scrollView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.showsVerticalScrollIndicator = false
@@ -93,6 +99,7 @@ final class HotelsHotelDetailsViewController: UIViewController {
     
     required init(viewModel: HotelViewModel) {
         self.viewModel = viewModel
+        isFavorite = viewModel.isFavorite
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -109,6 +116,14 @@ final class HotelsHotelDetailsViewController: UIViewController {
         
         navigationBar.onLeftButton = {
             self.navigationController?.popViewController(animated: false)
+        }
+        navigationBar.onRightButton = {
+            self.isFavorite.toggle()
+            self.viewModel.isFavorite = self.isFavorite
+            if var hotelsDict = UserDefaults.standard.value(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] {
+                hotelsDict[self.viewModel.name] = self.viewModel.toDict()
+                UserDefaults.standard.setValue(hotelsDict, forKey: HotelViewModel.Keys.hotels.rawValue)
+            }
         }
 
         HotelsSetupViews()

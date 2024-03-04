@@ -36,7 +36,7 @@ struct HotelViewModel {
     var isFavorite: Bool = false
     
     var location: String {
-        [country, city, adress].flatMap({ $0 }).joined(separator: ",")
+        [country, city, adress].compactMap({ $0 }).joined(separator: ",")
     }
 
     func matchedConditions(with matches: Set<HotelsConditions>) -> Set<HotelsConditions> {

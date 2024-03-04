@@ -19,6 +19,21 @@ final class HotelsSearchViewController: UIViewController {
 
     private lazy var searchHeaderView: HotelsSearchHeaderView = {
         let headerView = HotelsSearchHeaderView(viewModel: viewModel)
+        headerView.onSearchTap = { searchVm in
+            self.hotels = self.items().filter({
+                var result = false
+                if searchVm.conditions.count > 0 {
+                    result = $0.matchedConditions(with: searchVm.conditions).count == searchVm.conditions.count
+                }
+                if !(searchVm.country?.isEmpty ?? true) {
+                    result = $0.country == searchVm.country
+                }
+                return result
+            })
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
         return headerView
     }()
 
@@ -40,21 +55,7 @@ final class HotelsSearchViewController: UIViewController {
         return tableView
     }()
 
-    private var hotels: [HotelViewModel] = {
-        var hotels: [HotelViewModel] = [
-            .init(name: "Paris Monte-Carlo", country: "Monaco", city: "Monte-Carlo", adress: "Pl. du Casino", phone: "+377 98 06 30 00", email: "resort@sbm.mc", starsCount: 5, photo: UIImage(named: "ic_hotel_first")!, conditions: [.pool, .sauna, .gym, .roulette, .restaurant, .bar]),
-            .init(name: "Casino Baden-Baden", country: "Germany", city: "Baden-Bade", adress: "Ludwig-Wilhelm-Platz 4, 76530", phone: "+49 7221 9000", email: "badenbaden@gmail.com", starsCount: 5, photo: UIImage(named: "ic_hotel_second")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar])
-        ]
-        guard let hotelsDict = UserDefaults.standard.value(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] else {
-            return hotels
-        }
-        hotelsDict.keys.forEach {
-            if let hotel = hotelsDict[$0], let model = hotel[$0] as? [String: Any] {
-                hotels.append(HotelViewModel.fromDict(hotelsDict: model))
-            }
-        }
-        return hotels
-    }()
+    private var hotels: [HotelViewModel] = []
 
     required init(viewModel: SearchViewModel? = nil, isFromHomeScreen: Bool = false) {
         self.viewModel = viewModel ?? .empty()
@@ -75,6 +76,12 @@ final class HotelsSearchViewController: UIViewController {
         HotelsSetupViews()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.hotels = items()
+        tableView.reloadData()
+    }
+
     private func HotelsSetupViews() {
         view.addSubview(navigationBar)
         view.addSubview(tableView)
@@ -92,6 +99,22 @@ final class HotelsSearchViewController: UIViewController {
         navigationBar.onLeftButton = {
             self.navigationController?.popViewController(animated: false)
         }
+    }
+
+    private func items() -> [HotelViewModel] {
+        var hotels: [HotelViewModel] = [
+            .init(name: "Paris Monte-Carlo", country: "Monaco", city: "Monte-Carlo", adress: "Pl. du Casino", phone: "+377 98 06 30 00", email: "resort@sbm.mc", starsCount: 5, photo: UIImage(named: "ic_hotel_first")!, conditions: [.pool, .sauna, .gym, .roulette, .restaurant, .bar]),
+            .init(name: "Casino Baden-Baden", country: "Germany", city: "Baden-Bade", adress: "Ludwig-Wilhelm-Platz 4, 76530", phone: "+49 7221 9000", email: "badenbaden@gmail.com", starsCount: 5, photo: UIImage(named: "ic_hotel_second")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar])
+        ]
+        guard let hotelsDict = UserDefaults.standard.value(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] else {
+            return hotels
+        }
+        hotelsDict.keys.forEach {
+            if let hotel = hotelsDict[$0], let model = hotel[$0] as? [String: Any] {
+                hotels.append(HotelViewModel.fromDict(hotelsDict: model))
+            }
+        }
+        return hotels
     }
 }
 
@@ -132,7 +155,9 @@ extension HotelsSearchViewController: UITableViewDataSource {
                 let index = (indexPath.row - 1)/2
                 model = hotels[index]
             }
-            cell.setupCell(with: model)
+            DispatchQueue.main.async {
+                cell.setupCell(with: model)
+            }
             cell.onFeedback = {
                 self.showFeedBackAlert()
             }
@@ -158,6 +183,24 @@ extension HotelsSearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = HotelsSearchHeaderView(viewModel: viewModel)
+        headerView.onSearchTap = { searchVm in
+            self.hotels = self.items().filter({
+                var result = false
+                if searchVm.conditions.count > 0 {
+                    result = $0.matchedConditions(with: searchVm.conditions).count == searchVm.conditions.count
+                }
+                if !(searchVm.country?.isEmpty ?? true) {
+                    result = $0.country == searchVm.country
+                }
+                if  searchVm.rating ?? 1 > $0.starsCount {
+                    result = false
+                }
+                return result
+            })
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
         return headerView
     }
 }
