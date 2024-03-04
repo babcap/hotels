@@ -114,20 +114,36 @@ private extension HotelsProfileViewController {
     }
 
     func setupUser() {
-//        profileImageView.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
+        profileImageView.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
         titleLabel.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
-//        changePhotoButton.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
+        changePhotoButton.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
         deleteAccountButton.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
         loginButton.isHidden = HotelsAuthorizationManager.shared.isLoggedIn
         signUpButton.isHidden = HotelsAuthorizationManager.shared.isLoggedIn
+        if let user = HotelsAuthorizationManager.shared.user {
+            profileImageView.image = HotelsPhotoManager.shared.loadImageFromDiskWith(fileName: user.imagePath)
+            titleLabel.text = user.login
+        }
     }
 
     @objc func onLogin() {
-        
+        showAuthAlert(with: .login) {
+            guard $0 else {
+                self.showErrorAlert(type: .userNotFound)
+                return
+            }
+            self.setupUser()
+        }
     }
-    
+
     @objc func onSignUp() {
-        
+        showAuthAlert(with: .signUp) {
+            guard $0 else {
+                self.showErrorAlert(type: .somethingWentWrong)
+                return
+            }
+            self.setupUser()
+        }
     }
 
     @objc func onDelete() {
@@ -135,7 +151,13 @@ private extension HotelsProfileViewController {
                 let alert = UIAlertController(title: "Delete", message: "Are you sure?", preferredStyle: UIAlertController.Style.alert)
 
             alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.cancel, handler: {_ in 
-                HotelsAuthorizationManager.shared.deleteUser()
+                HotelsAuthorizationManager.shared.deleteUser(compltion: {
+                    guard $0 else {
+                        self.showErrorAlert(type: .userNotFound)
+                        return
+                    }
+                    self.setupUser()
+                })
             }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
 
@@ -164,7 +186,12 @@ private extension HotelsProfileViewController {
 extension HotelsProfileViewController: HotelsImagePickerDelegate {
 
     func imagePicker(_ imagePicker: HotelsImagePicker, didSelect image: UIImage) {
+        guard let user = HotelsAuthorizationManager.shared.user else {
+            showErrorAlert(type: .somethingWentWrong)
+            return
+        }
         profileImageView.image = image
+        HotelsPhotoManager.shared.saveImage(imageName: user.imagePath, image: image)
         imagePicker.dismiss()
     }
 

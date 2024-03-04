@@ -13,8 +13,10 @@ final class HotelsSignInView: HotelsFilledGradientView {
                                         title: "Sign in to your account to simplify registration",
                                         color: .white, lines: 0)
     private lazy var signInButton = HotelsGradientButton(type: .custom)
+    private lazy var signUpButton = HotelsGradientButton(type: .custom)
 
     var onSignIn: Hotels_VoidBlock?
+    var onSignUp: Hotels_VoidBlock?
 
     required init() {
         super.init()
@@ -31,6 +33,7 @@ private extension HotelsSignInView {
     func Hotels_setupViews() {
         addSubview(titleLabel)
         addSubview(signInButton)
+        addSubview(signUpButton)
         signInButton.addTarget(self, action: #selector(onSignInButton), for: .touchUpInside)
 
         titleLabel.snp.makeConstraints {
@@ -41,16 +44,31 @@ private extension HotelsSignInView {
         
         signInButton.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-            $0.right.left.equalToSuperview().inset(25)
+            $0.left.equalToSuperview().inset(25)
+            $0.right.equalTo(self.snp.centerX).inset(25)
+            $0.bottom.equalToSuperview().inset(24)
+            $0.height.width.equalTo(59)
+        }
+
+        signUpButton.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.right.equalToSuperview().inset(25)
+            $0.left.equalTo(self.snp.centerX).offset(25)
             $0.bottom.equalToSuperview().inset(24)
             $0.height.width.equalTo(59)
         }
     
         signInButton.setTitle("Sign In", for: .normal)
         signInButton.isTitleGold = true
+        signUpButton.setTitle("Create User", for: .normal)
+        signUpButton.isTitleGold = true
     }
 
     @objc func onSignInButton() {
         self.onSignIn?()
+    }
+
+    @objc func onSignUpButton() {
+        self.onSignUp?()
     }
 }

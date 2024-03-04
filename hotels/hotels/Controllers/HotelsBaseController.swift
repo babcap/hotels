@@ -13,6 +13,12 @@ enum AlertType: String {
     case signUp = "Sign Up"
 }
 
+enum ErrorType: String {
+    case emptyFields = "Please fill the fields"
+    case userNotFound = "User not found"
+    case somethingWentWrong = "Something went wrong"
+}
+
 extension HotelsBaseController {
     func showAuthAlert(with type: AlertType, completion: HotelsBoolCompletion?) {
         let alertController = UIAlertController(title: type.rawValue, message: "", preferredStyle: .alert)
@@ -22,7 +28,8 @@ extension HotelsBaseController {
         let saveAction = UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
             let secondTextField = alertController.textFields![1] as UITextField
-            guard let login = firstTextField.text, let password = secondTextField.text else {
+            guard let login = firstTextField.text, let password = secondTextField.text, !login.isEmpty, !password.isEmpty else {
+                self.showErrorAlert(type: .emptyFields)
                 return
             }
             switch type {
@@ -41,5 +48,15 @@ extension HotelsBaseController {
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
+    }
+
+    func showErrorAlert(type: ErrorType) {
+        let alertController = UIAlertController(title: "Error", message: type.rawValue, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
+        }))
+
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }

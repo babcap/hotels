@@ -40,7 +40,7 @@ extension HotelsAuthorizationManager {
     }
 
     func login(login: String, password: String, completion: HotelsBoolCompletion?) {
-        guard let user = UserDefaults.value(forKey: login) as? [String:String],
+        guard let user = UserDefaults.standard.value(forKey: login) as? [String:String],
               let storedPassword = user[HotelsUser.Keys.password.rawValue] else {
             completion?(false)
             return

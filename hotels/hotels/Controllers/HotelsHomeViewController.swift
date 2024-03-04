@@ -78,6 +78,10 @@ class HotelsHomeViewController: UIViewController {
         hotelsSignInView.onSignIn = {
             self.HotelsSignIn()
         }
+        
+        hotelsSignInView.onSignUp = {
+            self.HotelsSignUp()
+        }
 
         hotelsMainArticleView.onShow = {
             self.showArticle(model: $0)
@@ -121,7 +125,21 @@ extension HotelsHomeViewController {
     }
 
     func HotelsSignIn() {
-        
+        showAuthAlert(with: .login) { result in
+            guard result else {
+                self.showErrorAlert(type: .userNotFound)
+                return
+            }
+        }
+    }
+
+    func HotelsSignUp() {
+        showAuthAlert(with: .signUp) { result in
+            guard result else {
+                self.showErrorAlert(type: .somethingWentWrong)
+                return
+            }
+        }
     }
 
     func showArticle(model: HotelsArticleViewModel) {
