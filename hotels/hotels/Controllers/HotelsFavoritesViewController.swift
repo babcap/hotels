@@ -14,15 +14,16 @@ final class HotelsFavoritesViewController: UIViewController {
             .init(name: "Paris Monte-Carlo", country: "Monaco", city: "Monte-Carlo", adress: "Pl. du Casino", phone: "+377 98 06 30 00", email: "resort@sbm.mc", starsCount: 5, photo: UIImage(named: "ic_hotel_first")!, conditions: [.pool, .sauna, .gym, .roulette, .restaurant, .bar]),
             .init(name: "Casino Baden-Baden", country: "Germany", city: "Baden-Bade", adress: "Ludwig-Wilhelm-Platz 4, 76530", phone: "+49 7221 9000", email: "badenbaden@gmail.com", starsCount: 5, photo: UIImage(named: "ic_hotel_second")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar])
         ]
-        guard let hotelsDict = UserDefaults.standard.value(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] else {
+        guard let hotelsDict = UserDefaults.standard.object(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] else {
             return hotels
         }
+        debugPrint(hotels)
         hotelsDict.keys.forEach {
-            if let hotel = hotelsDict[$0] {
-                hotels.append(HotelViewModel.fromDict(hotelsDict: hotel)) 
+            if let hotel = hotelsDict[$0], let model = hotel[$0] as? [String: Any] {
+                hotels.append(HotelViewModel.fromDict(hotelsDict: model))
             }
         }
-        return hotels
+        return hotels.filter { $0.isFavorite }
     }()
     
     private lazy var navigationBar: Hotels_NavigationBar = {

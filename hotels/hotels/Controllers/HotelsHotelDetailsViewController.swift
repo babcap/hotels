@@ -83,7 +83,8 @@ final class HotelsHotelDetailsViewController: UIViewController {
     }()
 
     private lazy var conditionsView: HotelsConditionsView = {
-        let view = HotelsConditionsView()
+        let view = HotelsConditionsView(selected: Set(viewModel.conditions.enumerated().map({ $0.0
+        })))
         view.isUserInteractionEnabled = false
         return view
     }()
@@ -111,7 +112,6 @@ final class HotelsHotelDetailsViewController: UIViewController {
         }
 
         HotelsSetupViews()
-//        setup(with: viewModel)
     }
 
 }

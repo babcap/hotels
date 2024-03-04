@@ -231,17 +231,27 @@ private extension HotelsCreateHotelViewController {
     @objc func onCreate() {
 
         let uuidString = "\(UUID())"
+        debugPrint("Test uuidString: \(uuidString)")
         let image = self.imageView.image ?? UIImage(named: "ic_image_placeholder")!
         HotelsPhotoManager.shared.saveImage(imageName: uuidString, image: image)
-
-        let viewModel: HotelViewModel = .init(name: nameTextField.text ?? "",
-                                              country: countryTextField.text ?? "",
-                                              city: cityTextField.text ?? "",
-                                              adress: addressTextField.text ?? "",
-                                              starsCount: Int(ratingView.rating) ,
+        let conditions: Set<HotelsConditions> = Set(self.conditionsView.selectedCells.map { HotelsConditions.allCases[$0]})
+        let name = nameTextField.text ?? ""
+        let country = countryTextField.text
+        let city = cityTextField.text
+        let adress = addressTextField.text
+        let stars = Int(ratingView.rating)
+        let phone = phoneTextField.text ?? ""
+        let email = emailTextField.text ?? ""
+        let viewModel: HotelViewModel = .init(name: name,
+                                              country: country,
+                                              city: city,
+                                              adress: adress,
+                                              phone: phone,
+                                              email: email,
+                                              starsCount: stars,
                                               photo: image,
                                               photoPath: uuidString,
-                                              conditions: Set(self.conditionsView.selectedCells.map { HotelsConditions.allCases[$0]}))
+                                              conditions: conditions)
         var defaultsHotels = [String: [String:Any]]()
         if let hotelsDict = UserDefaults.standard.value(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] {
             defaultsHotels = hotelsDict

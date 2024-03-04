@@ -24,9 +24,9 @@ struct HotelViewModel {
     }
     
     let name: String
-    let country: String
-    let city: String
-    let adress: String
+    let country: String?
+    let city: String?
+    let adress: String?
     var phone: String?
     var email: String?
     let starsCount: Int
@@ -36,7 +36,7 @@ struct HotelViewModel {
     var isFavorite: Bool = false
     
     var location: String {
-        [country, city, adress].joined(separator: ",")
+        [country, city, adress].flatMap({ $0 }).joined(separator: ",")
     }
 
     func matchedConditions(with matches: Set<HotelsConditions>) -> Set<HotelsConditions> {
@@ -71,8 +71,10 @@ struct HotelViewModel {
         let isFavorite = hotelsDict[HotelViewModel.Keys.isFavorite.rawValue] as? Bool ?? false
         let photoPath = hotelsDict[HotelViewModel.Keys.photoPath.rawValue] as? String ?? ""
         let photo = HotelsPhotoManager.shared.loadImageFromDiskWith(fileName: photoPath) ?? UIImage(named: "ic_hotel_first")!
-        let conditions = hotelsDict[HotelViewModel.Keys.conditions.rawValue] as? Set<HotelsConditions> ?? Set<HotelsConditions>()
-        return .init(name: name, country: country, city: city, adress: adress, phone: phone, email: email, starsCount: starsCount, photo: photo, conditions: conditions, isFavorite: isFavorite)
+        let conditions = (hotelsDict[HotelViewModel.Keys.conditions.rawValue] as? [Int] ?? [Int]()).enumerated().map { HotelsConditions.allCases[$0.0]
+        }
+        let conditionsSet = Set(conditions)
+        return .init(name: name, country: country, city: city, adress: adress, phone: phone, email: email, starsCount: starsCount, photo: photo, conditions: conditionsSet, isFavorite: isFavorite)
     }
 }
 

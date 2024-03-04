@@ -44,7 +44,10 @@ final class HotelsConditionsView: UIView {
         return collection
     }()
 
-    required init() {
+    required init(selected: Set<Int>? = nil) {
+        if let selected {
+            selectedCells = selected
+        }
         super.init(frame: .zero)
 
         Hotels_setupViews()
@@ -101,6 +104,10 @@ extension HotelsConditionsView: UICollectionViewDelegate, UICollectionViewDataSo
         cell.isSelected = false
         selectedCells.remove(indexPath.row)
     }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.isSelected = selectedCells.contains(indexPath.row)
+    }
 }
 
 final class HotelsConditionCell: UICollectionViewCell {
@@ -110,6 +117,7 @@ final class HotelsConditionCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             setColors(isSelected: isSelected)
+            
         }
     }
 
@@ -134,6 +142,7 @@ final class HotelsConditionCell: UICollectionViewCell {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
+        setColors(isSelected: self.isSelected)
     }
 
     func setColors(isSelected: Bool) {

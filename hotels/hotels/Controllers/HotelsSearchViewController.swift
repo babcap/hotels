@@ -49,8 +49,8 @@ final class HotelsSearchViewController: UIViewController {
             return hotels
         }
         hotelsDict.keys.forEach {
-            if let hotel = hotelsDict[$0] {
-                hotels.append(HotelViewModel.fromDict(hotelsDict: hotel))
+            if let hotel = hotelsDict[$0], let model = hotel[$0] as? [String: Any] {
+                hotels.append(HotelViewModel.fromDict(hotelsDict: model))
             }
         }
         return hotels
