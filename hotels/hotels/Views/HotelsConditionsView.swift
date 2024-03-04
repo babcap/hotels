@@ -18,6 +18,7 @@ enum HotelsConditions: String, CaseIterable {
     case roulette = "Roulette"
     case poker = "Poker"
     case sea = "Access to the sea"
+    case restaurant = "Restaurant"
 }
 
 final class HotelsConditionsView: UIView {

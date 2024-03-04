@@ -8,6 +8,17 @@
 import UIKit
 
 struct HotelViewModel {
+    enum Keys: String {
+        case hotels
+        case name
+        case location
+        case phone
+        case email
+        case starsCount
+        case photo
+        case conditions
+    }
+
     let name: String
     let location: String
     var phone: String?
@@ -144,6 +155,7 @@ final class HotelCell: UITableViewCell {
         self.titleLabel.text = viewModel.name
         self.locationLabel.text = viewModel.location
         self.starLabel.text = "\(viewModel.starsCount)"
+        self.hotelsImageView.image = viewModel.photo
     }
 }
 
@@ -170,6 +182,7 @@ private extension HotelCell {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(21)
             $0.left.equalToSuperview().offset(21)
+            $0.right.equalTo(starLabel.snp.left).inset(8)
             $0.height.equalTo(40)
         }
 
@@ -182,13 +195,14 @@ private extension HotelCell {
         locationLabel.snp.makeConstraints {
             $0.left.equalTo(locationImageView.snp.right).offset(10)
             $0.centerY.equalTo(locationImageView.snp.centerY)
-            $0.right.equalTo(titleLabel.snp.right)
+            $0.right.equalTo(starLabel.snp.left).inset(8)
             $0.height.equalTo(24)
             $0.bottom.equalTo(topView.snp.bottom).inset(20)
         }
 
         starLabel.snp.makeConstraints {
             $0.right.equalToSuperview().inset(40)
+            $0.width.equalTo(20)
             $0.centerY.equalTo(titleLabel.snp.centerY)
         }
 

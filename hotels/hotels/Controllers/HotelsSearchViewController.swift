@@ -40,13 +40,28 @@ final class HotelsSearchViewController: UIViewController {
         return tableView
     }()
 
-    private var hotels: [HotelViewModel] = [
-        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
-        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
-        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
-        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker]),
-        .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker])
-    ]
+    private var hotels: [HotelViewModel] = {
+        var hotels: [HotelViewModel] = [
+            .init(name: "Paris Monte-Carlo", location: "Pl. du Casino, 98000 Monaco", phone: "+377 98 06 30 00", email: "mailto:resort@sbm.mc", starsCount: 5, photo: UIImage(named: "ic_hotel_first")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar]),
+            .init(name: "Casino Baden-Baden", location: "Ludwig-Wilhelm-Platz 4, 76530 Baden-Baden", phone: "+49 7221 9000", email: "badenbaden@gmail.com", starsCount: 5, photo: UIImage(named: "ic_hotel_second")!, conditions: [.pool, .sauna, .wify, .gym, .poker, .roulette, .restaurant, .bar])
+        ]
+        guard let hotelsDict = UserDefaults.standard.value(forKey: HotelViewModel.Keys.hotels.rawValue) as? [String: [String:Any]] else {
+            return hotels
+        }
+        hotelsDict.keys.forEach {
+            if let hotel = hotelsDict[$0] {
+                let name = hotel[HotelViewModel.Keys.name.rawValue] as? String ?? ""
+                let location = hotel[HotelViewModel.Keys.location.rawValue] as? String ?? ""
+                let starsCount = Int(hotel[HotelViewModel.Keys.starsCount.rawValue] as? String ?? "") ?? 1
+                let photo = HotelsPhotoManager.shared.loadImageFromDiskWith(fileName: hotel[HotelViewModel.Keys.photo.rawValue] as? String ?? "") ?? UIImage(named: "ic_hotel_first")!
+                let conditions = Set((hotel[HotelViewModel.Keys.conditions.rawValue] as? [Int] ?? []).map {
+                    HotelsConditions.allCases[$0]
+                })
+                hotels.append(.init(name: name, location: location, starsCount: starsCount, photo: photo, conditions: conditions))
+            }
+        }
+        return hotels
+    }()
 
     required init(viewModel: SearchViewModel? = nil, isFromHomeScreen: Bool = false) {
         self.viewModel = viewModel ?? .empty()
@@ -117,7 +132,14 @@ extension HotelsSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row % 2 != 0 {
             let cell: HotelCell = tableView.dequeueReusableCell(withIdentifier: HotelCell.reuseIdentifier, for: indexPath) as! HotelCell
-            cell.setupCell(with: .init(name: "test", location: "test", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino]))
+            var model: HotelViewModel
+            if indexPath.row == 1 {
+                model = hotels[0]
+            } else {
+                let index = (indexPath.row - 1)/2
+                model = hotels[index]
+            }
+            cell.setupCell(with: model)
             return cell
         } else {
             let cell: SectionSpacerCell = tableView.dequeueReusableCell(withIdentifier: SectionSpacerCell.reuseIdentifier, for: indexPath) as! SectionSpacerCell

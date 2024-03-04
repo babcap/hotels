@@ -35,12 +35,12 @@ final class HotelsHotelDetailsViewController: UIViewController {
 
     private let titleLabel = UILabel(font: .helvetica(style: .medium, size: 27),
                                      color: .white, lines: 0)
-    private let locationLabel = UILabel(font: .helvetica(style: .medium, size: 27),
-                                     color: .white, lines: 0)
-    private let phoneLabel = UILabel(font: .helvetica(style: .medium, size: 27),
-                                     color: .white, lines: 0)
-    private let emailLabel = UILabel(font: .helvetica(style: .medium, size: 27),
-                                     color: .white, lines: 0)
+    private let locationLabel = UILabel(font: .helvetica(style: .regular, size: 16),
+                                     color: .colorLocation, lines: 0)
+    private let phoneLabel = UILabel(font: .helvetica(style: .regular, size: 16),
+                                     color: .colorLocation, lines: 0)
+    private let emailLabel = UILabel(font: .helvetica(style: .regular, size: 16),
+                                     color: .colorLocation, lines: 0)
 
     private lazy var locationImageView: UIImageView = {
         let view = UIImageView()
@@ -111,7 +111,7 @@ final class HotelsHotelDetailsViewController: UIViewController {
         }
 
         HotelsSetupViews()
-        setup(with: viewModel)
+//        setup(with: viewModel)
     }
 
 }
@@ -124,10 +124,19 @@ extension HotelsHotelDetailsViewController {
         self.phoneLabel.text = viewModel.phone
         self.emailLabel.text = viewModel.email
         self.starLabel.text = "\(viewModel.starsCount)"
+        self.imageView.image = viewModel.photo
+        self.conditionsView.selectedCells = Set(viewModel.conditions.enumerated().map({
+            $0.0
+        }))
+        DispatchQueue.main.async {
+            self.conditionsView.reloadConditions()
+        }
+        
     }
     func HotelsSetupViews() {
         view.addSubview(navigationBar)
         view.addSubview(scrollView)
+        setup(with: viewModel)
         view.addSubview(conditionsView)
         scrollView.addSubview(contentStackView)
         infoView.addSubview(titleLabel)
@@ -192,7 +201,7 @@ extension HotelsHotelDetailsViewController {
 
         phoneImageView.snp.makeConstraints {
             $0.width.height.equalTo(17)
-            $0.top.equalTo(locationImageView.snp.bottom).offset(12)
+            $0.top.equalTo(locationLabel.snp.bottom).offset(12)
             $0.left.equalTo(locationImageView)
         }
         phoneLabel.snp.makeConstraints {
