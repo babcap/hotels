@@ -130,7 +130,7 @@ extension HotelsHomeViewController {
                 self.showErrorAlert(type: .userNotFound)
                 return
             }
-            hotelsSignInView.removeFromSuperview()
+            self.hotelsSignInView.removeFromSuperview()
         }
     }
 
@@ -140,7 +140,7 @@ extension HotelsHomeViewController {
                 self.showErrorAlert(type: .somethingWentWrong)
                 return
             }
-            hotelsSignInView.removeFromSuperview()
+            self.hotelsSignInView.removeFromSuperview()
         }
     }
 
