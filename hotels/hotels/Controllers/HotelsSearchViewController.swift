@@ -38,7 +38,7 @@ final class HotelsSearchViewController: UIViewController {
     }()
 
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.showsHorizontalScrollIndicator = false
@@ -202,5 +202,23 @@ extension HotelsSearchViewController: UITableViewDataSource {
             }
         }
         return headerView
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let header = HotelsCreateHotelButtonView()
+        header.onCreate = {
+            let vc = HotelsCreateHotelViewController()
+            vc.onCreated = {
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: false)
+                }
+            }
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        UITableView.automaticDimension
     }
 }

@@ -47,6 +47,7 @@ final class Hotels_NavigationBar: UIView {
     }()
 
     private let isBackButtonHidden: Bool
+    private let isCenteredLogo: Bool
     
     // MARK: - Public properties
 
@@ -58,6 +59,7 @@ final class Hotels_NavigationBar: UIView {
     required init(isBackButtonHidden: Bool = false,
                   rightButtonImage: UIImage? = nil) {
         self.isBackButtonHidden = isBackButtonHidden
+        isCenteredLogo = rightButtonImage == nil
         super.init(frame: .zero)
         self.rightButton.isHidden = rightButtonImage == nil
         self.rightButton.setImage(rightButtonImage, for: .normal)
@@ -96,13 +98,17 @@ private extension Hotels_NavigationBar {
         navigationBarView.addSubview(rightButton)
     
         logoImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+            if isCenteredLogo {
+                $0.centerX.equalToSuperview()
+            } else {
+                $0.left.equalToSuperview().offset(26)
+            }
             $0.bottom.equalToSuperview().inset(18)
             $0.width.height.equalTo(58)
         }
         rightButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview().inset(11)
+            $0.bottom.equalToSuperview().inset(18)
+            $0.right.equalToSuperview().inset(26)
         }
     
         if !isBackButtonHidden {
