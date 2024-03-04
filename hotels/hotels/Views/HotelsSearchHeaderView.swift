@@ -134,7 +134,7 @@ final class HotelsSearchHeaderView: UIView {
 
         headerContainer.snp.makeConstraints() {
             $0.top.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(25)
+            $0.left.right.equalToSuperview()
             $0.bottom.equalTo(self.snp.bottom).priority(.high)
         }
     

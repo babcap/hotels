@@ -65,6 +65,7 @@ extension HotelsAuthorizationManager {
             return
         }
         UserDefaults.standard.removeObject(forKey: user.login)
+        self.user = nil
         compltion?(true)
     }
 }

@@ -35,6 +35,7 @@ private extension HotelsSignInView {
         addSubview(signInButton)
         addSubview(signUpButton)
         signInButton.addTarget(self, action: #selector(onSignInButton), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(onSignUpButton), for: .touchUpInside)
 
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(24)

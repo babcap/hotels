@@ -10,9 +10,10 @@ import UIKit
 final class HotelsSearchViewController: UIViewController {
 
     private let viewModel: SearchViewModel
+    private let isFromHomeScreen: Bool
 
     private lazy var navigationBar: Hotels_NavigationBar = {
-        let view = Hotels_NavigationBar()
+        let view = Hotels_NavigationBar(isBackButtonHidden: !isFromHomeScreen)
         return view
     }()
 
@@ -29,9 +30,8 @@ final class HotelsSearchViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.register(HotelCell.self, forCellReuseIdentifier: HotelCell.reuseIdentifier)
         tableView.register(SectionSpacerCell.self, forCellReuseIdentifier: SectionSpacerCell.reuseIdentifier)
-        tableView.canCancelContentTouches = false
-        
-        tableView.sectionHeaderTopPadding = 0
+        tableView.contentInset = .init(top: 30, left: .zero, bottom: .zero, right: .zero)
+
         tableView.bounces = false
         
         tableView.delegate = self
@@ -48,8 +48,9 @@ final class HotelsSearchViewController: UIViewController {
         .init(name: "", location: "", starsCount: 3, photo: UIImage(), conditions: [.bar, .casino, .gym, .poker])
     ]
 
-    required init(viewModel: SearchViewModel? = nil) {
+    required init(viewModel: SearchViewModel? = nil, isFromHomeScreen: Bool = false) {
         self.viewModel = viewModel ?? .empty()
+        self.isFromHomeScreen = isFromHomeScreen
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -76,7 +77,9 @@ final class HotelsSearchViewController: UIViewController {
 
         tableView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
-            $0.left.right.bottom.equalToSuperview()
+            $0.left.equalToSuperview().offset(25)
+            $0.right.equalToSuperview().inset(25)
+            $0.bottom.equalToSuperview()
         }
         navigationBar.onLeftButton = {
             self.navigationController?.popViewController(animated: false)

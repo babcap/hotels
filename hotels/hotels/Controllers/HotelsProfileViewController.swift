@@ -10,7 +10,7 @@ import UIKit
 final class HotelsProfileViewController: UIViewController {
     
     private lazy var navigationBar: Hotels_NavigationBar = {
-        let view = Hotels_NavigationBar()
+        let view = Hotels_NavigationBar(isBackButtonHidden: true)
         return view
     }()
     
@@ -25,7 +25,7 @@ final class HotelsProfileViewController: UIViewController {
     private lazy var changePhotoButton = UIButton(type: .custom)
 
     private let titleLabel = UILabel(font: .helvetica(style: .medium, size: 27),
-                                     color: .white, lines: 0)
+                                     color: .white, alignment: .center, lines: 0)
     
     private let HotelsButtonsStackView = UIStackView(axis: .vertical, distribution: .equalSpacing, spacing: 20)
     private lazy var loginButton = HotelsGradientButton(type: .custom)
@@ -75,7 +75,8 @@ private extension HotelsProfileViewController {
 
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(profileImageView.snp.bottom).offset(16)
-            $0.left.right.equalToSuperview().offset(25)
+            $0.left.equalToSuperview().offset(25)
+            $0.right.equalToSuperview().inset(25)
         }
     
         HotelsButtonsStackView.snp.makeConstraints {
@@ -106,7 +107,7 @@ private extension HotelsProfileViewController {
         signUpButton.isTitleGold = true
         deleteAccountButton.addTarget(self, action: #selector(onDelete), for: .touchUpInside)
         deleteAccountButton.setTitle("Delete Account", for: .normal)
-        deleteAccountButton.gradientColors = [UIColor.colorDelete.cgColor]
+        deleteAccountButton.gradientColors = [UIColor.colorDelete.cgColor, UIColor.colorDelete.cgColor, UIColor.colorDelete.cgColor, UIColor.colorDelete.cgColor]
         changePhotoButton.setImage(UIImage(named: "ic_change_photo")!.withTintColor(.white, renderingMode: .alwaysTemplate), for: .normal)
         changePhotoButton.tintColor = .white
         
@@ -121,7 +122,9 @@ private extension HotelsProfileViewController {
         loginButton.isHidden = HotelsAuthorizationManager.shared.isLoggedIn
         signUpButton.isHidden = HotelsAuthorizationManager.shared.isLoggedIn
         if let user = HotelsAuthorizationManager.shared.user {
-            profileImageView.image = HotelsPhotoManager.shared.loadImageFromDiskWith(fileName: user.imagePath)
+            if let image = HotelsPhotoManager.shared.loadImageFromDiskWith(fileName: user.imagePath) {
+                profileImageView.image = image
+            }
             titleLabel.text = user.login
         }
     }
@@ -147,22 +150,20 @@ private extension HotelsProfileViewController {
     }
 
     @objc func onDelete() {
-        func showAlertButtonTapped(_ sender: UIButton) {
-                let alert = UIAlertController(title: "Delete", message: "Are you sure?", preferredStyle: UIAlertController.Style.alert)
-
-            alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.cancel, handler: {_ in 
-                HotelsAuthorizationManager.shared.deleteUser(compltion: {
-                    guard $0 else {
-                        self.showErrorAlert(type: .userNotFound)
-                        return
-                    }
-                    self.setupUser()
-                })
-            }))
-                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-
-                self.present(alert, animated: true, completion: nil)
-            }
+        let alert = UIAlertController(title: "Delete", message: "Are you sure?", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.cancel, handler: {_ in
+            HotelsAuthorizationManager.shared.deleteUser(compltion: {
+                guard $0 else {
+                    self.showErrorAlert(type: .userNotFound)
+                    return
+                }
+                self.setupUser()
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 
     @objc func changePhoto() {
