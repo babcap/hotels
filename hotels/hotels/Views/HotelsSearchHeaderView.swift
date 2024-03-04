@@ -10,6 +10,7 @@ import Cosmos
 
 final class HotelsSearchHeaderView: UIView {
     var onSearchTap: HotelsStartSearch_VoidBlock?
+    let viewModel: SearchViewModel
     
     private lazy var headerContainer = UIView()
     private lazy var searchContainer = HotelsFilledGradientView()
@@ -102,7 +103,8 @@ final class HotelsSearchHeaderView: UIView {
         return view
     }()
 
-    required init() {
+    required init(viewModel: SearchViewModel) {
+        self.viewModel = viewModel
         super.init(frame: .zero)
 
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -235,5 +237,12 @@ final class HotelsSearchHeaderView: UIView {
         self.cityLabel.text = "City"
         self.startDateLabel.text = "Start"
         self.endDateLabel.text = "Finish"
+        setup(with: viewModel)
+    }
+
+    private func setup(with viewModel: SearchViewModel) {
+        self.countryTextField.text = viewModel.country
+        self.startDateTextField.text = viewModel.startDate
+        self.endDateTextField.text = viewModel.endDate
     }
 }

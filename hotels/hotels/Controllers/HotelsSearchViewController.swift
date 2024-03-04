@@ -18,7 +18,7 @@ final class HotelsSearchViewController: UIViewController {
     }()
 
     private lazy var searchHeaderView: HotelsSearchHeaderView = {
-        let headerView = HotelsSearchHeaderView()
+        let headerView = HotelsSearchHeaderView(viewModel: viewModel)
         return headerView
     }()
 
@@ -139,7 +139,7 @@ extension HotelsSearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = HotelsSearchHeaderView()
+        let headerView = HotelsSearchHeaderView(viewModel: viewModel)
         return headerView
     }
 }

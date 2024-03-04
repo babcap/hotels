@@ -141,6 +141,8 @@ final class HotelsHomeSearchView: HotelsFilledGradientView, UITextFieldDelegate 
 
     func HotelsonSearchButton() {
         searchVM.country = cityTextField.text
+        searchVM.startDate = startDateTextField.text
+        searchVM.endDate = endDateTextField.text
         onSearchTap?(searchVM)
     }
 }
