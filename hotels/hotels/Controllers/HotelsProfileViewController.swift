@@ -17,10 +17,12 @@ final class HotelsProfileViewController: UIViewController {
     private lazy var profileImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
+        view.image = UIImage(named: "ic_user")!
         view.clipsToBounds = true
-        view.layer.cornerRadius = 171/2
         return view
     }()
+
+    private lazy var changePhotoButton = UIButton(type: .custom)
 
     private let titleLabel = UILabel(font: .helvetica(style: .medium, size: 27),
                                      color: .white, lines: 0)
@@ -29,6 +31,19 @@ final class HotelsProfileViewController: UIViewController {
     private lazy var loginButton = HotelsGradientButton(type: .custom)
     private lazy var signUpButton = HotelsGradientButton(type: .custom)
     private lazy var deleteAccountButton = HotelsGradientButton(type: .custom)
+
+    private lazy var imagePicker: HotelsImagePicker = {
+        let imagePicker = HotelsImagePicker()
+        imagePicker.delegate = self
+        return imagePicker
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        HotelsSetupViews()
+        setupUser()
+    }
 }
 
 private extension HotelsProfileViewController {
@@ -37,16 +52,25 @@ private extension HotelsProfileViewController {
         view.addSubview(profileImageView)
         view.addSubview(titleLabel)
         view.addSubview(HotelsButtonsStackView)
+        view.addSubview(changePhotoButton)
+        HotelsButtonsStackView.addArrangedSubview(loginButton)
+        HotelsButtonsStackView.addArrangedSubview(signUpButton)
+        HotelsButtonsStackView.addArrangedSubview(deleteAccountButton)
 
         navigationBar.snp.makeConstraints {
             $0.left.right.topMargin.equalToSuperview()
         }
         
         profileImageView.snp.makeConstraints {
-            $0.left.right.topMargin.equalToSuperview()
             $0.height.width.equalTo(171)
             $0.top.equalTo(navigationBar.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
+        }
+    
+        changePhotoButton.snp.makeConstraints {
+            $0.top.equalTo(profileImageView.snp.top)
+            $0.left.equalTo(profileImageView.snp.right).offset(16)
+            $0.height.width.equalTo(25)
         }
 
         titleLabel.snp.makeConstraints {
@@ -55,10 +79,24 @@ private extension HotelsProfileViewController {
         }
     
         HotelsButtonsStackView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().offset(25)
+            $0.left.equalToSuperview().offset(25)
+            $0.right.equalToSuperview().inset(25)
             $0.bottom.equalToSuperview().inset(60)
         }
+
+        loginButton.snp.makeConstraints {
+            $0.height.equalTo(59)
+        }
+        signUpButton.snp.makeConstraints {
+            $0.height.equalTo(59)
+        }
+        deleteAccountButton.snp.makeConstraints {
+            $0.height.equalTo(59)
+        }
+        profileImageView.layer.cornerRadius = 171/2
+        HotelssetupButtons()
     }
+
     func HotelssetupButtons() {
         loginButton.addTarget(self, action: #selector(onLogin), for: .touchUpInside)
         loginButton.setTitle("Sign In", for: .normal)
@@ -69,7 +107,19 @@ private extension HotelsProfileViewController {
         deleteAccountButton.addTarget(self, action: #selector(onDelete), for: .touchUpInside)
         deleteAccountButton.setTitle("Delete Account", for: .normal)
         deleteAccountButton.gradientColors = [UIColor.colorDelete.cgColor]
-        HotelsAuthorizationManager.shared.user
+        changePhotoButton.setImage(UIImage(named: "ic_change_photo")!.withTintColor(.white, renderingMode: .alwaysTemplate), for: .normal)
+        changePhotoButton.tintColor = .white
+        
+        changePhotoButton.addTarget(self, action: #selector(changePhoto), for: .touchUpInside)
+    }
+
+    func setupUser() {
+//        profileImageView.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
+        titleLabel.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
+//        changePhotoButton.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
+        deleteAccountButton.isHidden = !HotelsAuthorizationManager.shared.isLoggedIn
+        loginButton.isHidden = HotelsAuthorizationManager.shared.isLoggedIn
+        signUpButton.isHidden = HotelsAuthorizationManager.shared.isLoggedIn
     }
 
     @objc func onLogin() {
@@ -91,5 +141,37 @@ private extension HotelsProfileViewController {
 
                 self.present(alert, animated: true, completion: nil)
             }
+    }
+
+    @objc func changePhoto() {
+
+        let actionSheet = UIAlertController(title: "Source", message: "Take a picture or select a photo", preferredStyle: .actionSheet)
+
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler:{(action:UIAlertAction) in
+            self.imagePicker.cameraAsscessRequest()
+        }))
+
+        actionSheet.addAction(UIAlertAction(title: "Photos", style: .default, handler:{(action:UIAlertAction) in
+            self.imagePicker.photoGalleryAsscessRequest()
+        }))
+
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+}
+
+extension HotelsProfileViewController: HotelsImagePickerDelegate {
+
+    func imagePicker(_ imagePicker: HotelsImagePicker, didSelect image: UIImage) {
+        profileImageView.image = image
+        imagePicker.dismiss()
+    }
+
+    func cancelButtonDidClick(on imageView: HotelsImagePicker) { imagePicker.dismiss() }
+    func imagePicker(_ imagePicker: HotelsImagePicker, grantedAccess: Bool,
+                     to sourceType: UIImagePickerController.SourceType) {
+        guard grantedAccess else { return }
+        imagePicker.present(parent: self, sourceType: sourceType)
     }
 }
