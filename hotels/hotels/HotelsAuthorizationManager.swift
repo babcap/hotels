@@ -5,7 +5,7 @@
 //  Created by Arthur on 04.03.2024.
 //
 
-import Foundation
+import UIKit
 
 typealias HotelsBoolCompletion = ((Bool)->Void)
 
@@ -57,6 +57,19 @@ extension HotelsAuthorizationManager {
         self.user = user
         UserDefaults.standard.set(user.toDictionary(), forKey: login)
         completion?(true)
+    }
+
+    func createTestUser() {
+        let log = "testadmin"
+        guard let user = UserDefaults.standard.value(forKey: log) as? [String:String] else {
+            let uuid = UUID().uuidString
+            let user = HotelsUser(login: log,
+                                  password: log,
+                                  imagePath: uuid)
+            UserDefaults.standard.set(user.toDictionary(), forKey: log)
+            HotelsPhotoManager.shared.saveImage(imageName: uuid, image: UIImage(named: "ic_test_profile")!)
+            return
+        }
     }
 
     func deleteUser(compltion: HotelsBoolCompletion?) {
